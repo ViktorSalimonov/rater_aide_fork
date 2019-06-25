@@ -1,0 +1,222 @@
+<html>
+<head>
+<title>RaterAide Timesheet</title>
+<style type="text/css" media="all">
+
+body {
+overflow:hidden;
+}
+
+#timesheet-table {
+-moz-user-select:none;
+-webkit-user-select:none;
+-ms-user-select:none;
+box-sizing:border-box;
+font-family:sans-serif;
+border-spacing:0px;
+display:none;
+}
+
+#timesheet-table td {
+border-top:1px solid #222;
+border-left:1px solid #222;
+white-space:nowrap;
+overflow:hidden;
+padding:0 3px;
+cursor:default;
+}
+
+#timesheet-table td.stepper {
+width:44px;
+}
+
+#timesheet-table td.selected {
+background-color:#ced0fc;
+}
+
+#timesheet-table td.active:not(:active) {
+background-color:#e6ffff !important;
+}
+
+#timesheet-table td:last-child {
+border-right:1px solid #222;
+}
+
+#timesheet-table td:first-child {
+border-left:1px solid #222;
+}
+
+#timesheet-table td.disabled {
+color:#bbb;
+}
+
+#timesheet-table td.disabled.selected {
+color:#888;
+}
+
+#timesheet-table .header-row td {
+padding-top:6px !important;
+padding-bottom:4px !important;
+text-align:center;
+font-size:16px;
+}
+
+#timesheet-table .options-cell {
+text-align:center !important;
+font-size:16px !important;
+cursor:default;
+}
+
+#timesheet-table .date-row td {
+background-color:white;
+font-size:12px;
+text-align:center;
+font-weight:bold;
+}
+
+#timesheet-table .date-row td.stepper {
+text-align:center;
+font-size:16px;
+cursor:default;
+font-weight:normal;
+}
+
+#timesheet-table .date-row td.stepper:first-child {
+border-right:none;
+}
+
+#timesheet-table .date-row td.stepper:last-child {
+border-left:none;
+}
+
+#timesheet-table .date-row td.stepper:active,
+#timesheet-table .task-row td:first-child:not(.disabled):active,
+#timesheet-table .date-cell:active {
+background-color:#FFF0B2;
+}
+
+#timesheet-table .label-row td {
+background-color:white;
+font-size:10px;
+text-align:right;
+}
+
+#timesheet-table .task-row td {
+text-align:right;
+font-size:14px;
+border-bottom:none;
+}
+
+#timesheet-table .task-row td.grayed:not(.selected) {
+background-color:#dfdfdf !important;
+}
+
+#timesheet-table .task-row td.grayed.selected {
+background-color:#A5A6CA;
+}
+
+#timesheet-table .task-row td:not(.selected):not(.totals) {
+background-color:#fff;
+}
+
+#timesheet-table .task-row td:first-child {
+text-align:center;
+}
+
+#timesheet-table .totals-row td {
+font-size:14px;
+text-align:right;
+height:20px;
+}
+
+#timesheet-table .totals-row td {
+border-bottom:1px solid #222;
+font-weight:bold;
+}
+
+#timesheet-table .totals-row td.weekly-total-time {
+border-left:1px solid #222;
+}
+
+#options-table {
+border-collapse:collapse;
+margin:0 auto;
+display:none;
+}
+
+#options-table td {
+-webkit-user-select:none;
+padding-top:16px;
+border:none;
+font-size:14px;
+}
+
+#timesheet-table td.lightblue,
+#timesheet-table td.weekly-time,
+#timesheet-table td.weekly-count,
+#timesheet-table td.monthly-time,
+#timesheet-table td.monthly-count,
+#timesheet-table td.totals {
+background-color:#DBDFE8;
+}
+
+select, input {
+background:#fff;
+outline:none !important;
+}
+
+</style>
+</head>
+
+<body style="background-color:#f7f7f7">
+<table id="timesheet-table" style="height:180px; width:100%">
+	<tr class="date-row"><td class="stepper" rowspan="2"><</td><td class="stepper" rowspan="2" style="width:20px">&bull;</td><td class="stepper" rowspan="2">></td><td colspan="2" class="date-cell"></td><td colspan="2" class="date-cell"></td><td colspan="2" class="date-cell"></td><td colspan="2" class="date-cell"></td><td colspan="2" class="date-cell"></td><td colspan="2" class="date-cell"></td><td colspan="2" class="date-cell"></td><td colspan="2" id="weekly-total-cell" class="lightblue">Week Totals</td><td colspan="2" id="monthly-total-cell" class="lightblue">Monthly Totals</td></tr>
+	<tr class="label-row"><td>Time</td><td>Count</td><td>Time</td><td>Count</td><td>Time</td><td>Count</td><td>Time</td><td>Count</td><td>Time</td><td>Count</td><td>Time</td><td>Count</td><td>Time</td><td>Count</td><td class="lightblue">Time</td><td class="lightblue">Count</td><td class="lightblue">Time</td><td class="lightblue">Count</td></tr>
+	<tr class="task-row" name="exp"><td class="disabled" colspan="3">EXP</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td class="weekly-time totals"></td><td class="weekly-count totals"></td><td class="monthly-time totals"></td><td class="monthly-count totals"></td></tr>
+	<tr class="task-row" name="irr"><td class="disabled" colspan="3">IRR</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td class="weekly-time totals"></td><td class="weekly-count totals"></td><td class="monthly-time totals"></td><td class="monthly-count totals"></td></tr>
+	<tr class="task-row" name="rr"><td class="disabled" colspan="3">RR</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td class="weekly-time totals"></td><td class="weekly-count totals"></td><td class="monthly-time totals"></td><td class="monthly-count totals"></td></tr>
+	<tr class="task-row" name="sxs"><td class="disabled" colspan="3">SxS</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td class="weekly-time totals"></td><td class="weekly-count totals"></td><td class="monthly-time totals"></td><td class="monthly-count totals"></td></tr>
+	<tr class="totals-row">
+		<td colspan="3" style="background:#fff">
+			<table>
+				<tr>
+					<td style="width:20px; border:none"><!-- <input id="timesheet-in-hours" type="checkbox"> --></td>
+					<td style="border:none; font-weight:normal"><!-- <label for="timesheet-in-hours">Hours</label> --></td>
+				</tr>
+			</table>
+		</td>
+		<td class="totals"></td><td class="totals"></td><td class="totals"></td><td class="totals"></td><td class="totals"></td><td class="totals"></td><td class="totals"></td><td class="totals"></td><td class="totals"></td><td class="totals"></td><td class="totals"></td><td class="totals"></td><td class="totals"></td><td class="totals"></td>
+		<td class="weekly-total-time totals"></td>
+		<td class="weekly-total-count totals"></td>
+		<td class="monthly-total-time totals"></td>
+		<td class="monthly-total-count totals"></td>
+	</tr>
+</table>
+<table id="options-table">
+	<tr>
+		<td><input id="timesheet-in-hours" type="checkbox"></td>
+		<td><label for="timesheet-in-hours">Show hours</label></td>
+		<td style="width:24px"></td>
+		<td><input id="timesheet-rounding" type="checkbox"></td>
+		<td><label for="timesheet-rounding">Round time:</label></td>
+		<td style="padding-left:4px">
+			<select id="timesheet-rounding-mode">
+				<option value="1">Up</option>
+				<option value="0" selected>To nearest minute</option>							
+				<option value="2">Down</option>
+			</select>
+		</td>
+		<td style="width:24px"></td>
+		<td><input id="timesheet-limiting-mode" type="checkbox"></td>
+		<td><label for="timesheet-limiting-mode">Limit to AET (per task type)</label></td>
+	</tr>
+</table>
+
+<script type="text/javascript" src="js/lib/jquery.min.js" defer></script>
+<script type="text/javascript" src="js/lib/moment.min.js"></script>
+<script type="text/javascript" src="js/lib/moment-timezone.js"></script>
+<script type="text/javascript" src="js/timesheet-utils.js" defer></script>
+<script type="text/javascript" src="js/popout-timesheet.js" defer></script>
+
+</body>
+</html>

@@ -1,0 +1,199 @@
+.no-close .ui-dialog-titlebar-close {
+display:none;
+}
+
+.dialog ul {
+display:inline-block;
+margin:4px 0 0 0;
+border:1px solid lightgray;
+padding:0;
+}
+
+#edit-dialog {
+padding:10px 16px 0 16px;
+font-size:12px;
+}
+
+#edit-dialog ul.date, ul.start, ul.stop {
+background-color:white;
+width:100px;
+}
+
+#edit-dialog ul li {
+display:inline-block;
+}
+
+#edit-dialog textarea {
+resize:none;
+}
+
+/* Inputs */
+
+#edit-dialog input, #add-tasks-dialog input {
+padding:0 3px;
+height:24px;
+border:none;
+}
+
+#edit-dialog input.description {
+border:1px solid lightgray;
+margin:5px auto 0 auto; /* space between us and the floating label */
+padding-left:3px;
+font-size:14px;
+width:99%;
+}
+
+#edit-dialog input.date, input.time {
+text-align:center;
+cursor:default;
+}
+
+#edit-dialog input.time {
+font-size:14px;
+width:20px;
+}
+
+#edit-dialog input.date {
+box-sizing:border-box;
+text-align:left;
+font-size:14px;
+width:100%;
+}
+
+#edit-dialog input.hour {
+text-align:right;
+width:18px;
+}
+
+#edit-dialog input.ampm {
+text-align:left;
+width:26px;
+}
+
+#edit-dialog td.spinner ul {
+border:none;
+height:24px;
+text-align:center;
+}
+
+#edit-dialog td.spinner ul li {
+height:100%;
+width:25px;
+margin-top:-1px;
+}
+
+#edit-dialog textarea {
+height:80px;
+border:1px solid LightGray;
+width:99%;
+}
+
+/* Totals */
+
+#edit-dialog table.totals {
+border-spacing:0;
+height:100%;
+}
+
+table .totals td {
+vertical-align:middle;
+height:44px;
+}
+
+table .totals div.totals {
+font-size:18px;
+}
+
+.floating-label .diff {
+color:DodgerBlue
+}
+
+.floating-label .diff.bad {
+color:Tomato;
+}
+
+.floating-label .diff.good {
+color:#64ae64;
+}
+
+/* Other Dialogs */
+
+.dialog {
+display:none;
+font-size:14px;
+}
+
+.dialog:not(.wide) {
+max-width:800px;
+}
+
+.dialog table {
+border-collapse:collapse;
+}
+
+.dialog td {
+position:relative;
+}
+
+.dialog p {
+min-width:300px;
+-moz-user-select:text;
+-webkit-user-select:text;
+-ms-user-select:text;
+}
+
+.dialog ul {
+list-style-type:none;
+}
+
+.dialog ul li {
+display:inline-block;
+}
+
+.ui-dialog .ui-dialog-content {
+padding:10px 20px !important;
+}
+
+.dialog div.floating-label {
+position:absolute;
+margin:0 auto;
+width:100%;
+font-size:10px;
+color:lightgray;
+top:0;
+}
+
+.dialog input:disabled {
+background-color:#eee;
+-moz-user-select:none;
+-webkit-user-select:none;
+-ms-user-select:none;
+}
+
+.dialog ul.disabled {
+background-color:#eee;
+-moz-user-select:none;
+-webkit-user-select:none;
+-ms-user-select:none;
+}
+
+/* Tasks */
+
+#add-tasks-dialog {
+padding:10px 16px 0 16px;
+font-size:12px;
+}
+
+#add-tasks-dialog ul {
+padding:0;
+margin:0;
+}
+
+#add-tasks-dialog input {
+border:1px solid lightgray;
+}
+
+#add-tasks-dialog .tasknote {
+border:1px solid lightgray;
+background:white;
+}

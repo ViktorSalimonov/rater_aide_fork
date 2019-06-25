@@ -1,0 +1,218 @@
+<html>
+<head>
+<title>Invoice</title>
+<style type="text/css" media="all">
+
+body {
+margin:0;
+padding:0;
+background-color:#f7f7f7;
+-webkit-user-select:none;
+cursor:default;
+}
+
+#header-table {
+position:fixed;
+}
+
+#footer-table {
+position:fixed;
+bottom:0px;
+}
+
+#header-table th.step:active {
+background-color:#fff0B2;
+}
+
+table {
+border-collapse:collapse;
+border-spacing:0;
+width:100%;
+}
+
+table th {
+border:1px solid black;
+background-color:#b8b8b8;
+font-size:16px;
+}
+
+#footer-table th:not(:last-child) {
+border:1px solid #f7f7f7;
+border-top:1px solid black;
+}
+
+#footer-table td.total {
+background-color:#b8b8b8;
+font-weight:bold;
+font-size:14px;
+height:36px;
+-webkit-user-select:text;
+}
+
+#footer-table td.total.selected {
+background-color:#a5a6ca;
+}
+
+tfoot th {
+background-color:#f7f7f7;
+}
+
+table tr {
+background-color:#fff;
+}
+
+#footer-table tr {
+background-color:#f7f7f7
+}
+
+table span.note {
+color:#aaa;
+}
+
+table tr.shaded {
+background-color:#e6e6e6;
+}
+
+table tr.selected {
+background-color:#ced0fc;
+color:#000 !important;
+}
+
+table tr.selected.shaded {
+background-color:#b9bbe3;
+}
+
+table tr.shaded span.note, table tr.selected span.note {
+color:#888;
+}
+
+table td {
+border:1px solid black;
+padding:6px 8px;
+font-size:14px;
+}
+
+#options-table td {
+white-space:nowrap;
+border:none;
+padding:0;
+}
+
+select {
+background:#fff;
+outline:none !important;
+}
+
+</style>
+</head>
+
+<body>
+	<table id="header-table">
+		<thead>
+			<tr>
+				<th style="width:54px" class="step back">&lt;</th>
+				<th style="width:28px" class="step reset">&bull;</th>
+				<th style="width:54px" class="step next">&gt;</th>
+				<th style="text-align:left; padding-left:8px">Project</th>
+				<th style="width:136px; height:38px">Time Spent</th>
+			</tr>
+		</thead>
+	</table>
+	<table id="invoice-table">
+		<thead>
+			<tr>
+				<th style="width:54px"></th>
+				<th style="width:28px"></th>
+				<th style="width:54px"></th>
+				<th>Project</th>
+				<th style="width:136px; height:38px">Time Spent</th>
+			</tr>
+			<tr id="entry-template" style="display:none">
+				<td colspan="3" style="text-align:center"></td>
+				<td><span>&nbsp;</span>&nbsp;&nbsp;<span class="note"></span></td>
+				<td style="text-align:center"></td>
+			</tr>
+		</thead>
+		<tbody></tbody>
+		<tfoot>
+			<tr>
+				<th style="width:54px; border:none">&nbsp;</th>
+				<th style="width:28px; border:none"></th>
+				<th style="width:54px; border:none"></th>
+				<th style="border:none"></th>
+				<th style="width:132px; height:38px; border:none"></th>
+			</tr>
+		</tfoot>
+	</table>
+	<table id="footer-table">
+		<tfoot>
+			<tr>
+				<td colspan="4" style="border-bottom:none; border-left:none">
+					<table id="options-table" style="border:0">
+						<tfoot>
+							<tr>
+								<td class="project-cell" style="padding-right:4px; padding-top:8px">
+									<label id="project-label">Project:</label>
+								</td>
+								<td class="project-cell" style="padding-top:8px">
+									<select id="project-picker">
+										<option value="-1">All</option>
+										<option value="0">Yukon</option>
+										<option value="2">Nile</option>
+										<option value="3">Blue Nile</option>
+										<option value="5">White Nile</option>
+										<option value="6">Caribou</option>
+										<option value="10">Danube</option>
+										<option value="14">Hudson</option>
+										<option value="13">Kern</option>
+										<option value="7">Kwango</option>
+										<option value="8">Platte</option>
+										<option value="11">Shasta</option>
+										<option value="4">Sonora</option>
+										<option value="12">Tahoe</option>
+										<option value="9">Thames</option>
+										<option value="15">Truckee</option>
+									</select>
+								</td>
+								<td style="padding-right:4px; padding-top:8px">
+									<label id="device-label">Device:</label>
+								</td>
+								<td style="padding-top:8px">
+									<select id="device-picker">
+										<option value="-1">All</option>
+										<option value="0">Desktop</option>
+										<option value="1">Android Phone</option>
+										<option value="2">Android Tablet</option>
+										<option value="8">iPhone</option>
+										<option value="9">iPad</option>
+									</select>
+								</td>
+								<td class="billing-cell" style="padding-right:4px; padding-top:8px">
+									<label id="bill-for-label">Bill for:</label>
+								</td>
+								<td class="billing-cell" style="padding-top:8px">
+									<select id="billing-picker"><option value="0">Session Duration</option><option value="1">Task Duration</option><option value="2">Total AET</option></select>
+								</td>
+								<td class="notes-cell" style="width:22px; padding-top:8px">
+									<input id="invoice-notes-checkbox" type="checkbox" style="width:22px" />
+								</td>
+								<td class="notes-cell" style="padding-top:8px">
+									<label for="invoice-notes-checkbox">Add mobile notes</label>
+								</td>
+							</tr>
+						</tfoot>
+					</table>
+				</td>
+				<td style="width:122px; height:38px; text-align:center" class="total"></td>
+			</tr>
+		</tfoot>
+	</table>
+
+	<script type="text/javascript" src="js/lib/jquery.min.js" defer></script>
+	<script type="text/javascript" src="js/lib/moment.min.js"></script>
+	<script type="text/javascript" src="js/lib/moment-timezone.js"></script>
+	<script type="text/javascript" src="js/invoice-utils.js" defer></script>
+	<script type="text/javascript" src="js/popout-invoice.js" defer></script>
+
+</body>
+</html>

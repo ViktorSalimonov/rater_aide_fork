@@ -1,0 +1,203 @@
+<html>
+
+<head>
+<title>RaterAide</title>
+<link rel="stylesheet" href="css/selectize.default.css">
+<link rel="stylesheet" href="css/animate.min.css">
+<style type="text/css" media="all">
+
+*{
+box-sizing:border-box;
+font-family:sans-serif;
+}
+
+body {
+-moz-user-select:none;
+-webkit-user-select:none;
+-ms-user-select:none;
+overflow-y:hidden;
+overflow-x:hidden;
+background:#F8F8F8;
+}
+
+table {
+width:100%;
+border-spacing:0px;
+border-collapse:collapse;
+table-layout:fixed;
+}
+
+button {
+width:100%;
+height:100%;
+font-size:14px;
+border:1px solid #b8b8b8;
+border-radius:4px;
+color:rgb(48, 48, 48);
+
+-webkit-box-shadow:0 1px 0 rgba(0,0,0,0.05), inset 0 1px 0 rgba(255,255,255,0.8);  box-shadow: 0 1px 0 rgba(0,0,0,0.05), inset 0 1px 0 rgba(255,255,255,0.8);
+background-color:#f9f9f9;
+background-image:-moz-linear-gradient(top, #fefefe, #f2f2f2);
+background-image:-webkit-gradient(linear, 0 0, 0 100%, from(#fefefe), to(#f2f2f2));
+background-image:-webkit-linear-gradient(top, #fefefe, #f2f2f2);
+background-image:-o-linear-gradient(top, #fefefe, #f2f2f2);
+background-image:linear-gradient(to bottom, #fefefe, #f2f2f2);
+background-repeat:repeat-x;
+}
+
+button:active:not(.disabled):not(.debounce) {
+background:#ffffff;
+}
+
+button.disabled {
+color:LightGray;
+}
+
+.ticker-container {
+width:100%;
+height:100%;
+cursor:default;
+background:white;
+border:1px solid darkgray;
+border-radius:4px;
+background:#F0FAFF;
+position:relative;
+overflow:hidden;
+}
+
+.ticker-container.good {
+background:#F5FFE0;
+}
+
+.ticker-container.slow {
+background:#FFEBCC;
+}
+
+.ticker-container.tooslow {
+background:#FFCCCC;
+}
+
+.ticker-numbers {
+position:absolute;
+text-align:center;
+font-size:42px;
+color:Black;
+bottom:0;
+top:0;
+right:0;
+left:0;
+}
+
+/* Limit the height of the dropdown menu */
+.selectize-dropdown-content {
+max-height:172px;
+}
+
+/* Move the arrow to the right */
+.selectize-control.single .selectize-input:after {
+right:7px;
+}
+
+.selectize-input, .selectize-input { 
+line-height:15px !important;
+max-height:32px !important;
+}
+
+td {
+white-space:nowrap;
+text-overflow:clip;
+}
+
+:focus {
+outline:none;
+}
+
+@media screen and (max-width: 200px) {
+	#rewind, #forward {
+		display:none !important;
+	}
+}
+
+</style>
+</head>
+
+<body style="margin:6px">
+
+<!-- Prevent the selectize dropdowns from showing on open -->
+<input id="hiddeninput" type="text" style="position: absolute; top:-100; left:-100; opacity:0" autofocus>
+
+<table id="content" style="height:100%; border-collapse:collapse">
+	<tr id="task-select-row">
+		<td style="height:32px; padding:0 0 4px 0">
+			<table style="width:100%; height:100%; border-collapse:collapse; border-spacing:0">
+				<tr class="pop-out-button-row" style="display:none">
+					<td style="height:36px; padding:0 0 3px 0" title="Open the popout timer"><button type="button" class="open-in-separate-window" style="margin:0; padding:0">Open in New Window</button></td>
+				</tr>
+				<tr>
+					<td style="padding:0">
+						<table style="border-collapse:collapse; border-spacing:0; margin:0; padding:0">
+							<tr>
+								<td id="session-project-cell" style="padding:0 5px 0 0">
+									<select id="session-project" style="width:100%; padding:0; margin:0">
+										<option>Nile</option>
+										<option>Yukon</option>
+									</select>
+								</td>
+								<td id="task-device-cell" style="padding:0"><select id="task-device" style="width:100%; padding:0; margin:0"></select></td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+				<tr><td style="height:4px"></td></tr>
+				<tr>
+					<td style="padding:0">
+						<table style="width:100%; height:100%; border-collapse:collapse">
+							<tr>
+								<td id="task-type-cell" style="padding:0 5px 0 0; width:100%"><select id="task-type" style="width:100%; padding:0; margin:0"></select></td>
+								<td id="task-aet-cell" style="padding:0; width:68px"><select id="task-aet" style="width:100%; padding:0; margin:0"></select></td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+	<tr id="ticker-row">
+		<td style="padding:0">
+			<div class="ticker-container">
+				<div class="ticker-numbers disabled">
+					<table style="width:100%; height:100%">
+						<tr>
+							<td class="ticker-text" style="text-align:center; visibility:hidden">0:00</td>
+						</tr>
+					</table>
+				</div>
+				<div style="position:absolute; bottom:0; width:100%; text-align:center; font-size:12px; color:DarkGray"></div>				
+			</div>
+		</td>
+	</tr>
+	<tr id="submit-row">
+		<td style="height:36px; padding:2px 0 0 0">
+			<table class="submit-table" style="table-layout:fixed; height:100%">
+				<tr id="session-start-row">
+					<td style="width:80px; padding:0 4px 0 0" title="Begin new session"><button style="margin:0; padding:0" type="button" class="toggle-session">Start</button></td>
+					<td style="padding:0" title="Submit the current task"><button style="margin:0; padding:0" type="button" class="submit-task disabled">Submit</button></td>
+				</tr>
+				<tr id="session-stop-row" style="display:none">
+					<td style="width:80px; padding:0 4px 0 0" title="End active session"><button style="margin:0; padding:0" type="button" class="toggle-session">Stop</button></td>
+					<td style="padding:0" title="Submit the current task"><button style="margin:0; padding:0" type="button" class="submit-task disabled">Submit</button></td>
+				</tr>
+				<tr id="session-resume-row" style="display:none">
+					<td style="width:80px; padding:0 4px 0 0" title="Resume previous session"><button style="margin:0; padding:0" type="button" class="toggle-session">Resume</button></td>
+					<td style="padding:0" title="Submit the current task"><button style="margin:0; padding:0" type="button" class="submit-task disabled">Submit</button></td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+</table>
+<script type="text/javascript" src="js/lib/jquery.min.js" defer></script>
+<script type="text/javascript" src="js/lib/selectize.min.js" defer></script>
+<script type="text/javascript" src="js/lib/moment.min.js" defer></script>
+<script type="text/javascript" src="js/popout-timer.js" defer></script>
+</body>
+</html>

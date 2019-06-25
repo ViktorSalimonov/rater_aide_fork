@@ -1,0 +1,252 @@
+<html>
+<head>
+<title>RaterAide Calendar</title>
+<style type="text/css" media="all">
+
+#calendar-table {
+-moz-user-select:none;
+-webkit-user-select:none;
+-ms-user-select:none;
+box-sizing:border-box;
+font-family:sans-serif;
+border-spacing:0px;
+display:none;
+}
+
+#calendar-table td {
+border-top:1px solid #222;
+border-left:1px solid #222;
+white-space:nowrap;
+overflow:hidden;
+cursor:default;
+}
+
+#calendar-table td span:last-child {
+color:DarkGray;
+}
+
+#calendar-table td.selected {
+background-color:#ced0fc;
+}
+
+#calendar-table td.active {
+background-color:#e6ffff !important;
+}
+
+#calendar-table td.empty {
+color:LightGray;
+}
+
+#calendar-table .week-row td.empty:first-child,
+#calendar-table .week-row td.empty:last-child,
+#calendar-table td.month-total.empty {
+color:DarkGray;
+}
+
+#calendar-table td.empty.selected {
+color:DarkGray;
+}
+
+#calendar-table td.selected.active {
+background-color:#b9bbe3 !important;
+}
+
+#calendar-table td:last-child {
+border-right:1px solid #222;
+}
+
+#calendar-table td:first-child {
+border-left:1px solid #222;
+}
+
+#calendar-table .header-row td {
+padding-top:6px !important;
+padding-bottom:4px !important;
+text-align:center;
+font-size:16px;
+}
+
+#calendar-table .options-cell {
+text-align:center !important;
+font-size:16px !important;
+cursor:default;
+}
+
+#calendar-table .date-row td {
+background-color:white;
+font-size:14px;
+text-align:center;
+font-weight:bold;
+height:48px;
+}
+
+#calendar-table .date-row td.stepper {
+text-align:center;
+font-size:16px;
+cursor:default;
+font-weight:bold;
+}
+
+#calendar-table .date-row td.stepper:first-child {
+border-right:none;
+}
+
+#calendar-table .date-row td.stepper:last-child {
+border-left:none;
+}
+
+#calendar-table .date-row td.stepper:active,
+#calendar-table .week-row td:first-child:active {
+background-color:#FFF0B2;
+}
+
+#calendar-table .week-row td {
+text-align:center;
+font-size:14px;
+border-bottom:none;
+position:relative;
+}
+
+#calendar-table .week-row td.grayed:not(.selected) {
+background-color:#dfdfdf !important;
+}
+
+#calendar-table .week-row td.grayed.empty:not(.selected) {
+color:DarkGray;
+}
+
+#calendar-table .week-row td.grayed.empty.selected {
+color:#bbb;
+}
+
+#calendar-table .week-row td.grayed.selected span:last-child {
+color:#bbb;
+}
+
+#calendar-table .week-row td.grayed.selected {
+background-color:#a5a6ca;
+}
+
+#calendar-table .week-row td:not(.selected):not(.totals) {
+background-color:#fff;
+}
+
+#calendar-table .week-row td.selected:not(.grayed) div.floating-day {
+color:#999 !important;
+}
+
+#calendar-table #monthly-total-cell {
+width:102px !important;
+}
+
+#calendar-table .stepper {
+width:44px !important;
+}
+
+#calendar-table .totals-row td {
+font-size:14px;
+text-align:center;
+}
+
+#calendar-table .totals-row td.totals {
+border-bottom:1px solid #222;
+font-weight:bold;
+}
+
+#calendar-table .totals-row td:not(.totals) {
+border-left:none;
+}
+
+#calendar-table .options-table td {
+border:none;
+}
+
+#calendar-table td.lightblue,
+#calendar-table td.weekly-time,
+#calendar-table td.weekly-count,
+#calendar-table td.monthly-time,
+#calendar-table td.monthly-total,
+#calendar-table td.totals {
+background-color:#DBDFE8;
+}
+
+#calendar-table td.totals.selected {
+background-color:#9fa4f9;
+}
+
+#calendar-table td.totals.selected span:nth-child(1) {
+color:#000;
+}
+
+#calendar-table td.totals.selected span:nth-child(3) {
+color:#888;
+}
+
+#calendar-table #options-table td {
+border:none;
+}
+
+select {
+background:#fff;
+}
+
+</style>
+</head>
+
+<body style="margin:1px; background-color:#f7f7f7">
+<table id="calendar-table" style="height:100%; width:100%; table-layout:fixed; visibility:hidden">
+	<tr class="date-row"><td class="stepper"><</td><td class="stepper" style="width:24px !important">&bull;</td><td class="stepper">></td><td class="date-cell"></td><td class="date-cell"></td><td class="date-cell"></td><td class="date-cell"></td><td class="date-cell"></td><td class="date-cell"></td><td class="date-cell"></td><td id="monthly-total-cell">Totals</td></tr>
+	<tr class="week-row"><td class="totals" colspan="3"></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></td><td class="monthly-total totals"></td></tr>
+	<tr class="week-row"><td class="totals" colspan="3"></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td class="monthly-total totals"></td></tr>
+	<tr class="week-row"><td class="totals" colspan="3"></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td class="monthly-total totals"></td></tr>
+	<tr class="week-row"><td class="totals" colspan="3"></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td class="monthly-total totals"></td></tr>
+	<tr class="week-row"><td class="totals" colspan="3"></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td class="monthly-total totals"></td></tr>
+	<tr class="week-row"><td class="totals" colspan="3"></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td class="monthly-total totals"></td></tr>
+	<tr class="totals-row">
+		<td colspan="10" style="">
+			<table id="options-table" style="border-collapse:collapse; border-spacing:0; margin:0 auto; padding:0; height:100%">
+				<tr>
+					<td class="project-cell" style="padding-right:4px"><label id="project-label" style="cursor:pointer">Project:</label></td>
+					<td class="project-cell">
+						<select id="project-picker">
+							<option value="-1">All</option>
+							<option value="0">Yukon</option>
+							<option value="2">Nile</option>
+							<option value="3">Blue Nile</option>
+							<option value="5">White Nile</option>
+							<option value="6">Caribou</option>
+							<option value="10">Danube</option>
+							<option value="14">Hudson</option>
+							<option value="13">Kern</option>
+							<option value="7">Kwango</option>
+							<option value="8">Platte</option>
+							<option value="11">Shasta</option>
+							<option value="4">Sonora</option>
+							<option value="12">Tahoe</option>
+							<option value="9">Thames</option>
+							<option value="15">Truckee</option>
+						</select>
+					</td>
+					<td style="width:16px"></td>
+					<td style="padding-right:4px"><label id="device-label" style="cursor:pointer">Device:</label></td>
+					<td><select id="device-picker" style="width:120px" disabled><option value="-1">All</option></select></td>
+					<td style="width:16px"></td>
+					<td class="billing-cell" style="padding-right:4px"><label id="bill-for-label" style="cursor:pointer">Bill for:</label></td>
+					<td class="billing-cell"><select id="billing-picker"><option value="0">Session Duration</option><option value="1">Task Duration</option><option value="2">Total AET</option></select></td>
+					<td style="width:16px"></td>
+					<td class="notes-cell"><input id="invoice-notes-checkbox" type="checkbox" /></td>
+					<td class="notes-cell">Add mobile notes</td>
+				</tr>
+			</table>
+		</td>
+		<td class="month-total totals"></td>
+	</tr>
+</table>
+
+<script type="text/javascript" src="js/lib/jquery.min.js" defer></script>
+<script type="text/javascript" src="js/lib/moment.min.js"></script>
+<script type="text/javascript" src="js/lib/moment-timezone.js"></script>
+<script type="text/javascript" src="js/popout-calendar.js" defer></script>
+
+</body>
+</html>

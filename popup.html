@@ -1,0 +1,1083 @@
+<link rel="stylesheet" type="text/css" href="css/simple-slider.css" />
+<link rel="stylesheet" type="text/css" href="css/simple-slider-volume.css" />
+<style type="text/css" media="all">
+*{
+box-sizing:border-box;
+cursor:default;
+}
+body {
+-moz-user-select:none;
+-webkit-user-select:none;
+-ms-user-select:none;
+background:#F8F8F8;
+}
+table {
+width:100%;
+}
+table td {
+font-size:12px;
+}
+.action-button {
+width:100%;
+height:34px;
+font-size:12px;
+border:1px solid darkgray;
+border-radius:4px;
+
+-webkit-box-shadow: 0 1px 0 rgba(0,0,0,0.05), inset 0 1px 0 rgba(255,255,255,0.8);  box-shadow: 0 1px 0 rgba(0,0,0,0.05), inset 0 1px 0 rgba(255,255,255,0.8);
+background-color: #f9f9f9;
+background-image: -moz-linear-gradient(top, #fefefe, #f2f2f2);
+background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#fefefe), to(#f2f2f2));
+background-image: -webkit-linear-gradient(top, #fefefe, #f2f2f2);
+background-image: -o-linear-gradient(top, #fefefe, #f2f2f2);
+background-image: linear-gradient(to bottom, #fefefe, #f2f2f2);
+background-repeat: repeat-x;
+}
+.action-button:active {
+background:#ffffff;
+}
+input {
+width:100%;
+padding:2px 4px;
+}
+select:not(.alert-type) {
+width:100%;
+}
+a.disabled {
+color:lightgray;
+}
+a.success {
+color:MediumSeaGreen;
+display:none;
+}
+a.error {
+color:Red;
+display:none;
+}
+#types-table td {
+padding:2px 4px;
+}
+input.invalid {
+outline:1px solid red !important;
+}
+hr {
+margin-bottom:2px;
+}
+
+/* Menu table */
+
+#menu-table td {
+padding:6px 0 4px 0;
+font-size:14px;
+text-align:center;
+color:LightGray;
+}
+
+#menu-table td:hover {
+color:DarkGray;
+}
+
+#menu-table td.selected {
+color:Black !important;
+}
+
+/* Dash modes */
+
+#dash-mode-table td:hover {
+color:DarkGray;
+}
+#dash-mode-table td.selected {
+color:Black !important;
+}
+#dash-row tr.numbers td {
+padding:8px 0 8px 0;
+font-size:28px;
+text-align:center;
+width:50%;
+}
+#dash-row tr.buttons td {
+padding:8px 0;
+font-size:12px;
+text-align:center;
+color:LightGray;
+}
+#dash-row tr.buttons td:hover {
+color:DarkGray;
+}
+
+/* Alerts table */
+
+#alerts-table input[type=checkbox] {
+margin-left:0;
+}
+#alerts-table input[type=text] {
+text-align:right;
+height:19px;
+font-size:12px;
+}
+#alerts-table td.aet-field {
+width:30px;
+}
+#alerts-options-table input[type=text] {
+width: 100%; 
+padding:2px 4px;
+}
+.slider-volume {
+width:100% !important;
+margin-left:0 !important;
+margin-right:0 !important;
+}
+#tabs-table input {
+margin-left:1px;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+outline: none; /* disable outline on all form elements */
+}
+
+#autosubmit-table td:not(:first-child) {
+padding-top:6px;
+padding-bottom:6px;
+white-space:nowrap;
+}
+
+#tabs-table td:not(:first-child) {
+padding-top:4px;
+padding-bottom:4px;
+white-space:nowrap;
+}
+
+/* Reload pane */
+
+#reloader-table tr.disabled td, #types-table tr.disabled td {
+color:LightGray;
+}
+#reloader-table input[type=checkbox] {
+margin-left:0;
+}
+#repeat-table td.disabled {
+color:LightGray;
+}
+
+/* Alerts pane */
+
+.pushtable.disabled {
+color:LightGray;
+}
+
+</style>
+
+<html>
+<body style="visibility:hidden">
+
+<script type="text/javascript" src="js/lib/jquery.min.js" defer></script>
+<script type="text/javascript" src="js/lib/jquery.numeric.js" defer></script>
+<script type="text/javascript" src="js/lib/simple-slider.js" defer></script>
+<script type="text/javascript" src="js/lib/moment.min.js" defer></script>
+<script type="text/javascript" src="js/popup.js" defer></script>
+
+<div style="width:240px">
+	<table id="actions-table" style="border-collapse:collapse; border-spacing:0">
+		<tr id="two-buttons">
+			<td colspan="2" style="padding-right:6px"><button id="toggle-session" class="action-button" tabindex=-1>Start</button></td>
+			<td style="width:80px"><button class="action-button show-sessions" tabindex=-1>Summary</button></td>
+		</tr>
+		<tr id="three-buttons" style="display:none">
+			<td style="padding-right:6px"><button id="new-session" class="action-button" tabindex=-1>New</button></td>
+			<td style="width:80px; padding-right:6px"><button id="resume-session" class="action-button" tabindex=-1>Resume</button></td>
+			<td style="width:80px"><button class="action-button show-sessions" tabindex=-1>Summary</button></td>
+		</tr>
+		<tr><td colspan="3"><hr /></td></tr>
+		<tr>
+			<td colspan="3">
+				<table id="menu-table" style="table-layout:fixed; border-collapse:collapse; border-spacing:0">
+					<tr>
+						<td class="menu-item">Alerts</td>
+						<td class="menu-item">Dash</td>
+						<td class="menu-item">Timer</td>
+						<td class="menu-item">Reload</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		<tr id="alerts-row">
+			<td colspan="3" style="height:276px">
+				<table id="alerts-table" style="height:100%">
+					<tr class="alert1">
+						<td class="alert-checkbox" style="width:18px; height:32px"><input class="alert1" type="checkbox"></td>
+						<td class="aet-field" style="width:36px"><input class="alert1" type="text" value="-5" maxlength="3"></td>
+						<td>
+							<select class="alert-type">
+								<option value="surplus">s</option>
+								<option value="speed">%</option>
+							</select>
+						</td>
+						<td><select class="alert1">
+							<option value="none">No Sound</option>
+							<option value="spoken">Spoken</option>
+							<optgroup label="Animals">
+								<option value="animals/random">Random</option>
+								<option value="animals/camel">Camel</option>
+								<option value="animals/cat">Cat</option>
+								<option value="animals/cow">Cow</option>
+								<option value="animals/dog">Dog</option>
+								<option value="animals/duck" selected>Duck</option>
+								<option value="animals/elephant">Elephant</option>
+								<option value="animals/elk">Elk</option>
+								<option value="animals/hawk">Hawk</option>
+								<option value="animals/horse">Horse</option>
+								<option value="animals/lion">Lion</option>
+								<option value="animals/monkey">Monkey</option>
+								<option value="animals/pig">Pig</option>
+								<option value="animals/rooster">Rooster</option>
+								<option value="animals/sheep">Sheep</option>
+								<option value="animals/turkey">Turkey</option>
+								<option value="animals/wolf">Wolf</option>
+							</optgroup>
+							<optgroup label="Effects">
+								<option value="effects/random">Random</option>
+								<option value="effects/bell">Bell</option>
+								<option value="effects/chimes">Chimes</option>
+								<option value="effects/martian">Martian</option>
+								<option value="effects/sonic">Sonic</option>
+								<option value="effects/tones1">Effect 1</option>
+								<option value="effects/tones2">Effect 2</option>
+								<option value="effects/tones3">Effect 3</option>
+								<option value="effects/tones4">Effect 4</option>
+								<option value="effects/tones5">Effect 5</option>
+								<option value="effects/tones6">Effect 6</option>
+								<option value="effects/tones7">Effect 7</option>
+								<option value="effects/tones8">Effect 8</option>
+								<option value="effects/tones9">Effect 9</option>
+								<option value="effects/tones10">Effect 10</option>
+								<option value="effects/tones11">Effect 11</option>
+								<option value="effects/tones12">Effect 12</option>
+							</optgroup>
+							<optgroup label="Household">
+								<option value="household/random">Random</option>
+								<option value="household/blender">Blender</option>
+								<option value="household/buzzer">Buzzer</option>
+								<option value="household/cashregister">Cash Register</option>
+								<option value="household/coins">Coins</option>
+								<option value="household/creak">Creak</option>
+								<option value="household/cuckoo">Cuckoo</option>
+								<option value="household/doorbell">Doorbell</option>
+								<option value="household/glass">Glass Breaking</option>
+								<option value="household/icedispenser">Ice Dispenser</option>
+								<option value="household/knock">Knocking</option>
+								<option value="household/pencil">Pencil</option>
+								<option value="household/phone">Phone</option>
+								<option value="household/pills">Pills</option>
+								<option value="household/printer">Printer</option>
+								<option value="household/radio">Radio</option>
+								<option value="household/windchime">Windchime</option>
+								<option value="household/zipper">Zipper</option>
+							</optgroup>
+							<optgroup label="Instruments">
+								<option value="instruments/random">Random</option>
+								<option value="instruments/accordion">Accordion</option>
+								<option value="instruments/bugle">Bugle</option>
+								<option value="instruments/clarinet">Clarinet</option>
+								<option value="instruments/cymbal">Cymbal</option>
+								<option value="instruments/fanfare">Fanfare</option>
+								<option value="instruments/flute">Flute</option>
+								<option value="instruments/gong">Gong</option>
+								<option value="instruments/guitar">Guitar</option>
+								<option value="instruments/harmonica">Harmonica</option>
+								<option value="instruments/harp">Harp</option>
+								<option value="instruments/harpsichord">Harpsichord</option>
+								<option value="instruments/marimba">Marimba</option>
+								<option value="instruments/piano">Piano</option>
+								<option value="instruments/rockorgan">Rock Organ</option>
+								<option value="instruments/saxophone">Saxophone</option>
+								<option value="instruments/timpani">Timpani</option>
+								<option value="instruments/trumpets">Trumpets</option>
+								<option value="instruments/tuba">Tuba</option>
+								<option value="instruments/violin">Violin</option>
+								<option value="instruments/xylophone">Xylophone</option>
+							</optgroup>
+							<optgroup label="Outdoors">
+								<option value="outdoors/random">Random</option>
+								<option value="outdoors/ambulance">Ambulance</option>
+								<option value="outdoors/bicycle">Bicycle</option>
+								<option value="outdoors/blacksmith">Blacksmith</option>
+								<option value="outdoors/caralarm">Car Alarm</option>
+								<option value="outdoors/carstarting">Car Starting</option>
+								<option value="outdoors/circularsaw">Circular Saw</option>
+								<option value="outdoors/drill">Drill</option>
+								<option value="outdoors/fireworks">Fireworks</option>
+								<option value="outdoors/gunfire">Gunfire</option>
+								<option value="outdoors/helicopter">Helicopter</option>
+								<option value="outdoors/jackhammer">Jackhammer</option>
+								<option value="outdoors/locomotive">Locomotive</option>
+								<option value="outdoors/passingcar">Passing Car</option>
+								<option value="outdoors/passingjet">Passing Jet</option>
+								<option value="outdoors/siren">Siren</option>
+								<option value="outdoors/splash">Splash</option>
+								<option value="outdoors/thunder">Thunder</option>
+								<option value="outdoors/trainhorn">Train Horn</option>
+							</optgroup>
+							<optgroup label="Tones">
+								<option value="tones/accept">Tone 1</option>
+								<option value="tones/congrats">Tone 2</option>
+								<option value="tones/decline">Tone 3</option>
+								<option value="tones/get">Tone 4</option>
+								<option value="tones/ring">Tone 5</option>
+								<option value="tones/send">Tone 6</option>
+								<option value="tones/system">Tone 7</option>
+								<option value="tones/system-error">Tone 8</option>
+								<option value="tones/wrong">Tone 9</option>
+							</optgroup>
+						</select></td>
+					</tr>
+					<tr class="alert1">
+						<td colspan="4" style="padding:0; vertical-align:top">
+							<table style="border-collapse:collapse; border-spacing:0; margin:0; padding:0" class="pushtable disabled">
+								<tr>
+									<td style="width:99%"></td>
+									<td style="width:1%; min-width:18px"><input id="alert1push" class="alert1" type="checkbox" disabled></td>
+									<td style="width:1%; padding-right:6px; white-space:nowrap"><label for="alert1push">Send push notification</label> if away</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr class="alert2">
+						<td class="alert-checkbox" style="width:18px; height:32px"><input class="alert2" type="checkbox"></td>
+						<td class="aet-field"><input class="alert2" type="text" value="5" maxlength="3"></td>
+						<td>
+							<select class="alert-type">
+								<option value="surplus">s</option>
+								<option value="speed">%</option>
+							</select>
+						</td>
+						<td><select class="alert2">
+							<option value="none">No Sound</option>
+							<option value="spoken">Spoken</option>
+							<optgroup label="Animals">
+								<option value="animals/random">Random</option>
+								<option value="animals/camel">Camel</option>
+								<option value="animals/cat">Cat</option>
+								<option value="animals/cow">Cow</option>
+								<option value="animals/dog">Dog</option>
+								<option value="animals/duck">Duck</option>
+								<option value="animals/elephant">Elephant</option>
+								<option value="animals/elk">Elk</option>
+								<option value="animals/hawk">Hawk</option>
+								<option value="animals/horse">Horse</option>
+								<option value="animals/lion">Lion</option>
+								<option value="animals/monkey">Monkey</option>
+								<option value="animals/pig">Pig</option>
+								<option value="animals/rooster">Rooster</option>
+								<option value="animals/sheep">Sheep</option>
+								<option value="animals/turkey">Turkey</option>
+								<option value="animals/wolf">Wolf</option>
+							</optgroup>
+							<optgroup label="Effects">
+								<option value="effects/random">Random</option>
+								<option value="effects/bell" selected>Bell</option>
+								<option value="effects/chimes">Chimes</option>
+								<option value="effects/martian">Martian</option>
+								<option value="effects/sonic">Sonic</option>
+								<option value="effects/tones1">Effect 1</option>
+								<option value="effects/tones2">Effect 2</option>
+								<option value="effects/tones3">Effect 3</option>
+								<option value="effects/tones4">Effect 4</option>
+								<option value="effects/tones5">Effect 5</option>
+								<option value="effects/tones6">Effect 6</option>
+								<option value="effects/tones7">Effect 7</option>
+								<option value="effects/tones8">Effect 8</option>
+								<option value="effects/tones9">Effect 9</option>
+								<option value="effects/tones10">Effect 10</option>
+								<option value="effects/tones11">Effect 11</option>
+								<option value="effects/tones12">Effect 12</option>
+							</optgroup>
+							<optgroup label="Household">
+								<option value="household/random">Random</option>
+								<option value="household/blender">Blender</option>
+								<option value="household/buzzer">Buzzer</option>
+								<option value="household/cashregister">Cash Register</option>
+								<option value="household/coins">Coins</option>
+								<option value="household/creak">Creak</option>
+								<option value="household/cuckoo">Cuckoo</option>
+								<option value="household/doorbell">Doorbell</option>
+								<option value="household/glass">Glass Breaking</option>
+								<option value="household/icedispenser">Ice Dispenser</option>
+								<option value="household/knock">Knocking</option>
+								<option value="household/pencil">Pencil</option>
+								<option value="household/phone">Phone</option>
+								<option value="household/pills">Pills</option>
+								<option value="household/printer">Printer</option>
+								<option value="household/radio">Radio</option>
+								<option value="household/windchime">Windchime</option>
+								<option value="household/zipper">Zipper</option>
+							</optgroup>
+							<optgroup label="Instruments">
+								<option value="instruments/random">Random</option>
+								<option value="instruments/accordion">Accordion</option>
+								<option value="instruments/bugle">Bugle</option>
+								<option value="instruments/clarinet">Clarinet</option>
+								<option value="instruments/cymbal">Cymbal</option>
+								<option value="instruments/fanfare">Fanfare</option>
+								<option value="instruments/flute">Flute</option>
+								<option value="instruments/gong">Gong</option>
+								<option value="instruments/guitar">Guitar</option>
+								<option value="instruments/harmonica">Harmonica</option>
+								<option value="instruments/harp">Harp</option>
+								<option value="instruments/harpsichord">Harpsichord</option>
+								<option value="instruments/marimba">Marimba</option>
+								<option value="instruments/piano">Piano</option>
+								<option value="instruments/rockorgan">Rock Organ</option>
+								<option value="instruments/saxophone">Saxophone</option>
+								<option value="instruments/timpani">Timpani</option>
+								<option value="instruments/trumpets">Trumpets</option>
+								<option value="instruments/tuba">Tuba</option>
+								<option value="instruments/violin">Violin</option>
+								<option value="instruments/xylophone">Xylophone</option>
+							</optgroup>
+							<optgroup label="Outdoors">
+								<option value="outdoors/random">Random</option>
+								<option value="outdoors/ambulance">Ambulance</option>
+								<option value="outdoors/bicycle">Bicycle</option>
+								<option value="outdoors/blacksmith">Blacksmith</option>
+								<option value="outdoors/caralarm">Car Alarm</option>
+								<option value="outdoors/carstarting">Car Starting</option>
+								<option value="outdoors/circularsaw">Circular Saw</option>
+								<option value="outdoors/drill">Drill</option>
+								<option value="outdoors/fireworks">Fireworks</option>
+								<option value="outdoors/gunfire">Gunfire</option>
+								<option value="outdoors/helicopter">Helicopter</option>
+								<option value="outdoors/jackhammer">Jackhammer</option>
+								<option value="outdoors/locomotive">Locomotive</option>
+								<option value="outdoors/passingcar">Passing Car</option>
+								<option value="outdoors/passingjet">Passing Jet</option>
+								<option value="outdoors/siren">Siren</option>
+								<option value="outdoors/splash">Splash</option>
+								<option value="outdoors/thunder">Thunder</option>
+								<option value="outdoors/trainhorn">Train Horn</option>
+							</optgroup>
+							<optgroup label="Tones">
+								<option value="tones/accept">Tone 1</option>
+								<option value="tones/congrats">Tone 2</option>
+								<option value="tones/decline">Tone 3</option>
+								<option value="tones/get">Tone 4</option>
+								<option value="tones/ring">Tone 5</option>
+								<option value="tones/send">Tone 6</option>
+								<option value="tones/system">Tone 7</option>
+								<option value="tones/system-error">Tone 8</option>
+								<option value="tones/wrong">Tone 9</option>
+							</optgroup>
+						</select></td>
+					</tr>
+					<tr class="alert2">
+						<td colspan="4" style="padding:0; vertical-align:top">
+							<table style="border-collapse:collapse; border-spacing:0; margin:0; padding:0" class="pushtable disabled">
+								<tr>
+									<td style="width:99%"></td>
+									<td style="width:1%; min-width:18px"><input id="alert2push" class="alert2" type="checkbox" disabled></td>
+									<td style="width:1%; padding-right:6px; white-space:nowrap"><label for="alert2push">Send push notification</label> if away</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr class="alert3">
+						<td class="alert-checkbox" style="width:18px; height:32px"><input class="alert3" type="checkbox"></td>
+						<td class="aet-field"><input class="alert3" type="text" value="10" maxlength="3"></td>
+						<td>
+							<select class="alert-type">
+								<option value="surplus">s</option>
+								<option value="speed">%</option>
+							</select>
+						</td>
+						<td><select class="alert3">
+							<option value="none">No Sound</option>
+							<option value="spoken">Spoken</option>
+							<optgroup label="Animals">
+								<option value="animals/random">Random</option>
+								<option value="animals/camel">Camel</option>
+								<option value="animals/cat">Cat</option>
+								<option value="animals/cow">Cow</option>
+								<option value="animals/dog">Dog</option>
+								<option value="animals/duck">Duck</option>
+								<option value="animals/elephant">Elephant</option>
+								<option value="animals/elk">Elk</option>
+								<option value="animals/hawk">Hawk</option>
+								<option value="animals/horse">Horse</option>
+								<option value="animals/lion">Lion</option>
+								<option value="animals/monkey">Monkey</option>
+								<option value="animals/pig">Pig</option>
+								<option value="animals/rooster">Rooster</option>
+								<option value="animals/sheep">Sheep</option>
+								<option value="animals/turkey">Turkey</option>
+								<option value="animals/wolf">Wolf</option>
+							</optgroup>
+							<optgroup label="Effects">
+								<option value="effects/random">Random</option>
+								<option value="effects/bell">Bell</option>
+								<option value="effects/chimes">Chimes</option>
+								<option value="effects/martian">Martian</option>
+								<option value="effects/sonic">Sonic</option>
+								<option value="effects/tones1">Effect 1</option>
+								<option value="effects/tones2">Effect 2</option>
+								<option value="effects/tones3">Effect 3</option>
+								<option value="effects/tones4">Effect 4</option>
+								<option value="effects/tones5">Effect 5</option>
+								<option value="effects/tones6">Effect 6</option>
+								<option value="effects/tones7">Effect 7</option>
+								<option value="effects/tones8">Effect 8</option>
+								<option value="effects/tones9">Effect 9</option>
+								<option value="effects/tones10">Effect 10</option>
+								<option value="effects/tones11">Effect 11</option>
+								<option value="effects/tones12">Effect 12</option>
+							</optgroup>
+							<optgroup label="Household">
+								<option value="household/random">Random</option>
+								<option value="household/blender">Blender</option>
+								<option value="household/buzzer">Buzzer</option>
+								<option value="household/cashregister" selected>Cash Register</option>
+								<option value="household/coins">Coins</option>
+								<option value="household/creak">Creak</option>
+								<option value="household/cuckoo">Cuckoo</option>
+								<option value="household/doorbell">Doorbell</option>
+								<option value="household/glass">Glass Breaking</option>
+								<option value="household/icedispenser">Ice Dispenser</option>
+								<option value="household/knock">Knocking</option>
+								<option value="household/pencil">Pencil</option>
+								<option value="household/phone">Phone</option>
+								<option value="household/pills">Pills</option>
+								<option value="household/printer">Printer</option>
+								<option value="household/radio">Radio</option>
+								<option value="household/windchime">Windchime</option>
+								<option value="household/zipper">Zipper</option>
+							</optgroup>
+							<optgroup label="Instruments">
+								<option value="instruments/random">Random</option>
+								<option value="instruments/accordion">Accordion</option>
+								<option value="instruments/bugle">Bugle</option>
+								<option value="instruments/clarinet">Clarinet</option>
+								<option value="instruments/cymbal">Cymbal</option>
+								<option value="instruments/fanfare">Fanfare</option>
+								<option value="instruments/flute">Flute</option>
+								<option value="instruments/gong">Gong</option>
+								<option value="instruments/guitar">Guitar</option>
+								<option value="instruments/harmonica">Harmonica</option>
+								<option value="instruments/harp">Harp</option>
+								<option value="instruments/harpsichord">Harpsichord</option>
+								<option value="instruments/marimba">Marimba</option>
+								<option value="instruments/piano">Piano</option>
+								<option value="instruments/rockorgan">Rock Organ</option>
+								<option value="instruments/saxophone">Saxophone</option>
+								<option value="instruments/timpani">Timpani</option>
+								<option value="instruments/trumpets">Trumpets</option>
+								<option value="instruments/tuba">Tuba</option>
+								<option value="instruments/violin">Violin</option>
+								<option value="instruments/xylophone">Xylophone</option>
+							</optgroup>
+							<optgroup label="Outdoors">
+								<option value="outdoors/random">Random</option>
+								<option value="outdoors/ambulance">Ambulance</option>
+								<option value="outdoors/bicycle">Bicycle</option>
+								<option value="outdoors/blacksmith">Blacksmith</option>
+								<option value="outdoors/caralarm">Car Alarm</option>
+								<option value="outdoors/carstarting">Car Starting</option>
+								<option value="outdoors/circularsaw">Circular Saw</option>
+								<option value="outdoors/drill">Drill</option>
+								<option value="outdoors/fireworks">Fireworks</option>
+								<option value="outdoors/gunfire">Gunfire</option>
+								<option value="outdoors/helicopter">Helicopter</option>
+								<option value="outdoors/jackhammer">Jackhammer</option>
+								<option value="outdoors/locomotive">Locomotive</option>
+								<option value="outdoors/passingcar">Passing Car</option>
+								<option value="outdoors/passingjet">Passing Jet</option>
+								<option value="outdoors/siren">Siren</option>
+								<option value="outdoors/splash">Splash</option>
+								<option value="outdoors/thunder">Thunder</option>
+								<option value="outdoors/trainhorn">Train Horn</option>
+							</optgroup>
+							<optgroup label="Tones">
+								<option value="tones/accept">Tone 1</option>
+								<option value="tones/congrats">Tone 2</option>
+								<option value="tones/decline">Tone 3</option>
+								<option value="tones/get">Tone 4</option>
+								<option value="tones/ring">Tone 5</option>
+								<option value="tones/send">Tone 6</option>
+								<option value="tones/system">Tone 7</option>
+								<option value="tones/system-error">Tone 8</option>
+								<option value="tones/wrong">Tone 9</option>
+							</optgroup>
+						</select></td>
+					</tr>
+					<tr class="alert3">
+						<td colspan="4" style="padding:0; vertical-align:top">
+							<table style="border-collapse:collapse; border-spacing:0; margin:0; padding:0" class="pushtable disabled">
+								<tr>
+									<td style="width:99%"></td>
+									<td style="width:1%; min-width:18px"><input id="alert3push" class="alert3" type="checkbox" disabled></td>
+									<td style="width:1%; padding-right:6px; white-space:nowrap"><label for="alert3push">Send push notification</label> if away</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr class="alert4">
+						<td class="alert-checkbox" style="width:18px; height:32px"><input class="alert4" type="checkbox"></td>
+						<td class="aet-field"><input class="alert4" type="text" value="30" maxlength="3"></td>
+						<td>
+							<select class="alert-type">
+								<option value="surplus">s</option>
+								<option value="speed">%</option>
+							</select>
+						</td>
+						<td><select class="alert4">
+							<option value="none">No Sound</option>
+							<option value="spoken">Spoken</option>
+							<optgroup label="Animals">
+								<option value="animals/random">Random</option>
+								<option value="animals/camel">Camel</option>
+								<option value="animals/cat">Cat</option>
+								<option value="animals/cow">Cow</option>
+								<option value="animals/dog">Dog</option>
+								<option value="animals/duck">Duck</option>
+								<option value="animals/elephant">Elephant</option>
+								<option value="animals/elk">Elk</option>
+								<option value="animals/hawk">Hawk</option>
+								<option value="animals/horse">Horse</option>
+								<option value="animals/lion">Lion</option>
+								<option value="animals/monkey">Monkey</option>
+								<option value="animals/pig">Pig</option>
+								<option value="animals/rooster">Rooster</option>
+								<option value="animals/sheep">Sheep</option>
+								<option value="animals/turkey">Turkey</option>
+								<option value="animals/wolf">Wolf</option>
+							</optgroup>
+							<optgroup label="Effects">
+								<option value="effects/random">Random</option>
+								<option value="effects/bell">Bell</option>
+								<option value="effects/chimes">Chimes</option>
+								<option value="effects/martian">Martian</option>
+								<option value="effects/sonic">Sonic</option>
+								<option value="effects/tones1">Effect 1</option>
+								<option value="effects/tones2">Effect 2</option>
+								<option value="effects/tones3">Effect 3</option>
+								<option value="effects/tones4">Effect 4</option>
+								<option value="effects/tones5">Effect 5</option>
+								<option value="effects/tones6">Effect 6</option>
+								<option value="effects/tones7">Effect 7</option>
+								<option value="effects/tones8">Effect 8</option>
+								<option value="effects/tones9">Effect 9</option>
+								<option value="effects/tones10">Effect 10</option>
+								<option value="effects/tones11">Effect 11</option>
+								<option value="effects/tones12">Effect 12</option>
+							</optgroup>
+							<optgroup label="Household">
+								<option value="household/random">Random</option>
+								<option value="household/blender">Blender</option>
+								<option value="household/buzzer">Buzzer</option>
+								<option value="household/cashregister">Cash Register</option>
+								<option value="household/coins">Coins</option>
+								<option value="household/creak">Creak</option>
+								<option value="household/cuckoo">Cuckoo</option>
+								<option value="household/doorbell">Doorbell</option>
+								<option value="household/glass">Glass Breaking</option>
+								<option value="household/icedispenser">Ice Dispenser</option>
+								<option value="household/knock">Knocking</option>
+								<option value="household/pencil">Pencil</option>
+								<option value="household/phone">Phone</option>
+								<option value="household/pills">Pills</option>
+								<option value="household/printer">Printer</option>
+								<option value="household/radio">Radio</option>
+								<option value="household/windchime">Windchime</option>
+								<option value="household/zipper">Zipper</option>
+							</optgroup>
+							<optgroup label="Instruments">
+								<option value="instruments/random">Random</option>
+								<option value="instruments/accordion">Accordion</option>
+								<option value="instruments/bugle">Bugle</option>
+								<option value="instruments/clarinet">Clarinet</option>
+								<option value="instruments/cymbal">Cymbal</option>
+								<option value="instruments/fanfare">Fanfare</option>
+								<option value="instruments/flute">Flute</option>
+								<option value="instruments/gong">Gong</option>
+								<option value="instruments/guitar">Guitar</option>
+								<option value="instruments/harmonica">Harmonica</option>
+								<option value="instruments/harp" selected>Harp</option>
+								<option value="instruments/harpsichord">Harpsichord</option>
+								<option value="instruments/marimba">Marimba</option>
+								<option value="instruments/piano">Piano</option>
+								<option value="instruments/rockorgan">Rock Organ</option>
+								<option value="instruments/saxophone">Saxophone</option>
+								<option value="instruments/timpani">Timpani</option>
+								<option value="instruments/trumpets">Trumpets</option>
+								<option value="instruments/tuba">Tuba</option>
+								<option value="instruments/violin">Violin</option>
+								<option value="instruments/xylophone">Xylophone</option>
+							</optgroup>
+							<optgroup label="Outdoors">
+								<option value="outdoors/random">Random</option>
+								<option value="outdoors/ambulance">Ambulance</option>
+								<option value="outdoors/bicycle">Bicycle</option>
+								<option value="outdoors/blacksmith">Blacksmith</option>
+								<option value="outdoors/caralarm">Car Alarm</option>
+								<option value="outdoors/carstarting">Car Starting</option>
+								<option value="outdoors/circularsaw">Circular Saw</option>
+								<option value="outdoors/drill">Drill</option>
+								<option value="outdoors/fireworks">Fireworks</option>
+								<option value="outdoors/gunfire">Gunfire</option>
+								<option value="outdoors/helicopter">Helicopter</option>
+								<option value="outdoors/jackhammer">Jackhammer</option>
+								<option value="outdoors/locomotive">Locomotive</option>
+								<option value="outdoors/passingcar">Passing Car</option>
+								<option value="outdoors/passingjet">Passing Jet</option>
+								<option value="outdoors/siren">Siren</option>
+								<option value="outdoors/splash">Splash</option>
+								<option value="outdoors/thunder">Thunder</option>
+								<option value="outdoors/trainhorn">Train Horn</option>
+							</optgroup>
+							<optgroup label="Tones">
+								<option value="tones/accept">Tone 1</option>
+								<option value="tones/congrats">Tone 2</option>
+								<option value="tones/decline">Tone 3</option>
+								<option value="tones/get">Tone 4</option>
+								<option value="tones/ring">Tone 5</option>
+								<option value="tones/send">Tone 6</option>
+								<option value="tones/system">Tone 7</option>
+								<option value="tones/system-error">Tone 8</option>
+								<option value="tones/wrong">Tone 9</option>
+							</optgroup>
+						</select></td>
+					</tr>
+					<tr class="alert4">
+						<td colspan="4" style="padding:0; vertical-align:top">
+							<table style="border-collapse:collapse; border-spacing:0; margin:0; padding:0" class="pushtable disabled">
+								<tr>
+									<td style="width:99%"></td>
+									<td style="width:1%; min-width:18px"><input id="alert4push" class="alert4" type="checkbox" disabled></td>
+									<td style="width:1%; padding-right:6px; white-space:nowrap"><label for="alert4push">Send push notification</label> if away</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="4" style="padding:0; height:1px">
+							<table style="border-collapse:collapse; border-spacing:0; margin:0; padding:0">
+								<tr>					
+									<td id="volume-cell" style="width:22px; height:32px; text-align:center"><img id="speaker-image" src="img/speaker-on.png" style="opacity:0.9"/></td>
+									<td style="padding-right:10px"><input id="volume-slider" type="text" data-slider="true" value="1" data-slider-highlight="true" data-slider-theme="volume" data-slider-step="0.01" data-slider-snap="true" style="display:none"></td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+
+		<tr id="dash-row" style="display:none">
+			<td colspan="3" style="height:276px">
+				<table style="border-collapse:collapse; border-spacing:0; margin:0; padding:0; height:100%">
+					<tr colspan="2">
+						<td style="padding:0">
+							<table style="border-collapse:collapse; border-spacing:0; margin:0; padding:0">
+								<td style="padding:0">
+									<tr class="numbers">
+										<td title="Duration" style="white-space:nowrap"><span id="duration-total">&nbsp;</span></td>
+										<td title="Speed/Surplus" style="white-space:nowrap"><span id="surplus-total">&nbsp;</span></td>
+									</tr>
+									<tr>
+										<td colspan="2" style="margin:0; padding:0">
+											<table id="dash-mode-table" style="border-collapse:collapse; border-spacing:0; margin:0; padding:0">
+												<tr class="buttons">
+													<td>Session</td>
+													<td>Today</td>
+													<td>Week</td>
+													<td>Month</td>
+												</tr>
+											</table>
+										</td>
+									</tr>
+								</td>			
+							</table>
+						</td>
+					</tr>				
+					<tr><td colspan="2"><hr style="margin:0" /></td></tr>
+					<tr>
+						<td colspan="2" style="padding:0">
+							<table id="autosubmit-table" style="border-collapse:collapse; border-spacing:0; margin:0; padding:0">
+								<tr><td colspan="8" style="font-size:12px; text-align:center">Automatically submit tasks:</td></tr>
+								<tr>
+									<td title="Automatically submit one task" style="width:18px; padding-right:2px; padding-left:0"><input type="checkbox" name="once"></td>
+									<td title="Automatically submit one task">Once</td>
+									<td title="Automatically submit all tasks in task set" style="width:20px"><input type="checkbox" name="set"></td>
+									<td title="Automatically submit all tasks in task set">Set</td>
+									<td title="Automatically submit all tasks for session" style="width:20px"><input type="checkbox" name="session"></td>
+									<td title="Automatically submit all tasks for session">Session</td>
+									<td title="Automatically submit every task" style="width:20px"><input type="checkbox" name="always"></td>
+									<td title="Automatically submit every task">Always</td>
+								</tr>
+							</table>
+						</td>
+					</tr>					
+
+					<tr><td colspan="2"><hr style="margin:0" /></td></tr>
+
+					<tr>
+						<td colspan="2">
+							<table id="tabs-table" style="border-collapse:collapse; border-spacing:0; margin:0; padding:0">
+								<tr><td colspan="4" style="font-size:12px; text-align:center; padding-bottom:6px">Show in task tab title:</td></tr>
+								<tr class="tab-countdown-row">
+									<td style="width:18px"><input type="checkbox" checked /></td>
+									<td>
+										<select>
+											<option value="surplus" selected>Surplus</option>
+											<option value="speed">Speed</option>
+											<option value="duration">Duration</option>
+											<option value="aet">Total AET</option>
+											<option value="earnings">Earnings</option>
+										</select>
+									</td>
+									<td style="padding-left:6px">for</td>
+									<td>
+										<select>
+											<option value="task" selected>Task</option>
+											<option value="session">Session</option>
+											<option value="day">Today</option>
+											<option value="week">Week</option>
+											<option value="month">Month</option>
+										</select>
+									</td>
+								</tr>
+								<tr class="tab-countdown-row">
+									<td style="width:18px"><input type="checkbox" checked /></td>
+									<td>
+										<select>
+											<option value="surplus">Surplus</option>
+											<option value="speed">Speed</option>
+											<option value="duration">Duration</option>
+											<option value="aet" selected>Total AET</option>
+											<option value="earnings">Earnings</option>
+										</select>
+									</td>
+									<td style="padding-left:6px">for</td>
+									<td>
+										<select>
+											<option value="task" selected>Task</option>
+											<option value="session">Session</option>
+											<option value="day">Today</option>
+											<option value="week">Week</option>
+											<option value="month">Month</option>
+										</select>
+									</td>
+								</tr>
+								<tr class="tab-countdown-row">
+									<td style="width:18px"><input type="checkbox" /></td>
+									<td>
+										<select>
+											<option value="surplus">Surplus</option>
+											<option value="speed">Speed</option>
+											<option value="duration">Duration</option>
+											<option value="aet">Total AET</option>
+											<option value="earnings" selected>Earnings</option>
+										</select>
+									</td>
+									<td style="padding-left:6px">for</td>
+									<td>
+										<select>
+											<option value="task">Task</option>
+											<option value="session">Session</option>
+											<option value="day">Today</option>
+											<option value="week">Week</option>
+											<option value="month" selected>Month</option>
+										</select>
+									</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		<tr id="timer-row" style="display:none">
+			<td colspan="3" style="height:276px; padding:0">
+				<iframe seamless="seamless" style="width:100%; height:100%; border:0" src="popout-timer.html"></iframe>
+			</td>
+		</tr>
+		<tr id="reloader-row" style="display:none">
+			<td colspan="3" style="height:276px">
+				<table id="reloader-table" style="height:100%">
+					<tr>
+						<td colspan="3" style="padding:0">
+							<table style="border-collapse:collapse; border-spacing:0; margin:0; padding:0">
+								<tr>
+									<td style="width:18px"><input id="reload-enabled" type="checkbox"></td>
+									<td style="white-space:nowrap"><label for="reload-enabled">Reload every:</label></td>
+									<td>
+										<select id="reload-interval-minutes">
+											<option value="0">0m</option>
+											<option value="1" selected>1m</option>
+											<option value="2">2m</option>
+											<option value="3">3m</option>
+											<option value="4">4m</option>
+											<option value="5">5m</option>
+											<option value="10">10m</option>
+											<option value="15">15m</option>
+											<option value="20">20m</option>
+											<option value="25">25m</option>
+											<option value="30">30m</option>
+											<option value="35">35m</option>
+											<option value="40">40m</option>
+											<option value="45">45m</option>
+											<option value="50">50m</option>
+											<option value="55">55m</option>
+											<option value="60">60m</option>
+										</select>
+									</td>
+									<td style="padding-left:4px">
+										<select id="reload-interval-seconds">
+											<option value="0" selected>0s</option>
+											<option value="2">2s</option>
+											<option value="5">5s</option>
+											<option value="10">10s</option>
+											<option value="15">15s</option>
+											<option value="20">20s</option>
+											<option value="25">25s</option>
+											<option value="30">30s</option>
+											<option value="35">35s</option>
+											<option value="40">40s</option>
+											<option value="45">45s</option>
+											<option value="50">50s</option>
+											<option value="55">55s</option>
+										</select>
+									</td>
+								</tr>
+								<tr><td></td></tr>
+								<tr>
+									<td style="width:18px; padding:1px"><input id="reload-acquire-enabled" type="checkbox"></td>
+									<td style="white-space:nowrap"><label for="reload-acquire-enabled">Auto-Acquire:</label></td>
+									<td colspan="2">
+										<select id="reload-acquire-mode">
+											<option value="0" selected>When NRT</option>
+											<option value="1">When Running</option>
+										</select>
+									</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr><td colspan="3"><hr style="margin:0" /></td></tr>
+					<tr>
+						<td style="padding:0; width:100%">
+							<table style="border-collapse:collapse; border-spacing:0; margin:0; padding:0; table-layout:fixed">
+								<tr>
+									<td><button type="button" style="width:99%" class="reload-schedule-options">Schedule...</button></td>
+									<td style="width:2px"></td>
+									<td><button type="button" style="width:99%" class="reload-types-options">Task Types...</button></td>
+								</tr>
+							</table>
+						</td>
+					</tr>					
+					<tr><td colspan="3"><hr style="margin:0" /></td></tr>
+					<tr>
+						<td style="padding:0">
+							<table style="border-collapse:collapse; border-spacing:0; margin:0; padding:0">
+								<tr>
+									<td style="width:18px"><input type="checkbox" id="reload-email-enabled" /></td>
+									<td style="width:1%; white-space:nowrap"><label for="reload-email-enabled">Send email:</label></td>
+									<td style="padding-left:4px"><select id="reload-email-picker"></select></td>
+								</tr>
+								<tr><td></td></tr>
+								<tr>
+									<td style="width:18px"><input type="checkbox" id="reload-sms-enabled" /></td>
+									<td style="width:1%; white-space:nowrap"><label for="reload-sms-enabled">Send SMS:</label></td>
+									<td style="padding-left:4px"><select id="reload-sms-picker"></select></td>
+								</tr>
+								<tr><td></td></tr>
+								<tr>
+									<td colspan="3" style="padding:0">
+										<table style="border-collapse:collapse; border-spacing:0; margin:0; padding:0">
+											<tr>
+												<td style="width:18px"><input type="checkbox" id="reload-push-enabled" /></td>
+												<td><label for="reload-push-enabled">Send push notification</label></td>											
+												<td style="text-align:right"><button id="reload-configure" type="button">Configure...</button></td>
+											</tr>
+										</table>
+									</td>
+								</tr>							
+							</table>
+						</td>
+					</tr>
+					<tr><td colspan="3"><hr style="margin:0" /></td></tr>
+					<tr>
+						<td colspan="3" style="padding:0">
+							<table style="border-collapse:collapse; border-spacing:0; margin:0; padding:0">
+								<tr>
+									<td style="padding:0">
+										<table style="border-collapse:collapse; border-spacing:0; margin:0; padding:0">
+											<tr>
+												<td style="width:18px; padding:1px"><input id="reload-sound-enabled" type="checkbox" checked></td>
+												<td><label for="reload-sound-enabled">Play sound:</label></td>
+												<td style="width:57%">
+													<select id="reload-sound-name">
+														<optgroup label="Music">
+															<option value="default" selected>Default</option>
+															<option value="blues">Blues</option>
+															<option value="country">Country</option>
+															<option value="latin">Latin</option>
+															<option value="oldies">Oldies</option>
+															<option value="punk-rock">Punk Rock</option>
+															<option value="r&b">R&B</option>
+															<option value="rap">Rap</option>
+															<option value="reggae">Reggae</option>
+															<option value="rock">Rock</option>
+															<option value="soul">Soul</option>
+															<option value="random">Random</option>
+														</optgroup>
+														<optgroup label="Tones">
+															<option value="tones/accept">Tone 1</option>
+															<option value="tones/congrats">Tone 2</option>
+															<option value="tones/decline">Tone 3</option>
+															<option value="tones/get">Tone 4</option>
+															<option value="tones/ring">Tone 5</option>
+															<option value="tones/send">Tone 6</option>
+															<option value="tones/system">Tone 7</option>
+															<option value="tones/system-error">Tone 8</option>
+															<option value="tones/wrong">Tone 9</option>
+														</optgroup>
+													</select>
+												</td>	
+											</tr>
+											<tr>
+												<td colspan="3" style="padding:0" title="Repeat sound when you are away from the computer.">
+													<table id="repeat-table" style="border-collapse:collapse; border-spacing:0; margin:0; padding:0">
+														<tr>
+															<td style="width:18px; padding:1px"><input id="reload-sound-repeat" type="checkbox"></td>
+															<td><label for="reload-sound-repeat">Repeat if away from the computer</label></td>
+														</tr>
+													</table>
+												</td>
+											</tr>
+										</table>
+									</td>
+								</tr>
+								<tr>
+									<td colspan="3" style="padding:0; height:1px">
+										<table style="border-collapse:collapse; border-spacing:0; margin:0; padding:0">
+											<tr>
+												<td id="reload-volume-cell" style="width:22px; height:32px; text-align:center"><img id="reload-speaker-image" src="img/speaker-on.png" style="opacity:0.9"/></td>
+												<td style="padding-right:10px"><input id="reload-volume-slider" type="text" data-slider="true" value="1" data-slider-highlight="true" data-slider-theme="volume" data-slider-step="0.01" data-slider-snap="true" style="display:none"></td>
+											</tr>
+										</table>
+									</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+
+	</table>
+</div>
+
+</body>
+</html>

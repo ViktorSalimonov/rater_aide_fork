@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>RaterAide</title>
+<link rel="icon" type="image/png" href="img/favicon.ico"/>
+<link rel="stylesheet" type="text/css" href="css/sessions.css" />
+<link rel="stylesheet" type="text/css" href="css/sessions-editing.css" />
+<link rel="stylesheet" type="text/css" href="css/jquery.dropdown.css" />
+<link rel="stylesheet" type="text/css" href="css/intrepid/jquery-ui-1.10.4.custom.css" />
+<link rel="stylesheet" type="text/css" href="css/spectrum.css" />
+<link rel="stylesheet" href="css/font-awesome.min.css">
+<link rel="stylesheet" href="css/selectize.default.css">
+<link rel="stylesheet" href="css/animate.min.css">
+
+<!-- Safari Web Content Icons -->
+<link rel="apple-touch-icon" href="Icon-180.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/images/touch/Icon-76.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/images/touch/Icon-120.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/images/touch/Icon-152.png">
+</head>
+
+<body>
+
+<div id="user-content" class="wrapper" style="text-align:center; max-width:1540px; margin-left:auto; margin-right:auto">
+	<table id="layout-table" style="width:100%; height:100%; border-collapse:collapse">
+		<tr>
+			<td style="vertical-align:top">
+				<table style="width:100%; border-collapse:collapse">
+					<tr id="period-header-row">
+						<td style="width:100%">
+							<div style="width:704px; height:100%; margin:-4px auto 10px auto">
+								<table id="top-left-header" style="width:100%; height:100%; table-layout:fixed; border-collapse:collapse; cursor:default">
+									<tr>
+										<td class="main-action" style="height:100%; text-align:left; font-size:18px; text-align:center">
+											<br><i class="fa fa-play" style="width:18px"></i><span style="padding-left:5px">Start</span><br><span class="session-totals" style="visibility:hidden">0m</span>
+										</td>
+										<td class="main-action" style="height:100%; text-align:left; font-size:18px; display:none; text-align:center">
+											<br><i class="fa fa-stop" style="width:18px"></i><span style="padding-left:5px">Stop</span><br><span class="session-totals" style="visibility:hidden">0m</span>
+										</td>
+										<td style="text-align:center; font-size:18px" class="period" data-value="0"><br><span class="title">Today</span><br><span class="header-totals">0m</span></td>
+										<td style="text-align:center; font-size:18px" class="period" data-value="1"><br><span class="title">Yesterday</span><br><span class="header-totals">0m</span></td>
+										<td style="text-align:center; font-size:18px" class="period" data-value="2"><br><span class="title">Week</span><br><span class="header-totals">0m</span></td>
+										<td style="text-align:center; font-size:18px" class="period" data-value="3"><br><span class="title">Period</span><br><span class="header-totals">0m</span></td>
+										<td style="text-align:center; font-size:18px; display:none">
+											<table style="width:100%; height:100%; border-collapse:collapse">
+												<tr>
+													<td class="period" data-value="3"><br><span class="title">Month</span><br><span class="header-totals">0m</span></td>
+												</tr>
+											</table>
+										</td>
+										<td style="text-align:center; font-size:18px">
+											<table style="width:100%; height:100%; border-collapse:collapse">
+												<tr>
+													<td style="white-space:nowrap">
+														<br>
+														<i id="show-months-item" data-dropdown="#month-dropdown" data-horizontal-offset="7" class="fa fa-angle-down fa-lg" style="transform: scale(1.2,1.1); width:40px"></i>
+														<i id="left-month-stepper" class="fa fa-angle-left fa-lg" style="transform: scale(1.0,1.1); width:32px"></i>
+														<i id="right-month-stepper" class="fa fa-angle-right fa-lg" style="transform: scale(1.0,1.1); width:32px"></i>
+													</td>
+												</tr>
+												<tr>
+													<td class="period" data-value="4"><span class="header-totals" style="visibility:hidden">0m</span></td>
+												</tr>
+											</table>
+										</td>
+									<tr>
+								</table>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td style="width:100%; height:54px">
+							<div id="sessions-table-container" class="table-container">
+								<div class="table-header-container">
+									<table id="session-header-table" class="header-table" style="position:relative">
+										<tr id="sessions-table-header-row" style="height:24px">
+											<td class="table-header-cell" colspan="7">
+												<div id="upper-left-menu" style="margin-top:1px">
+													<ul>
+														<li data-dropdown="#ra-dropdown"><a id="ra-menuitem">RA</a></li>
+														<li data-dropdown="#sessions-dropdown"><a id="sessions-menuitem">Sessions</a></li>
+														<li data-dropdown="#edit-dropdown"><a id="edit-menuitem">Edit</a></li>
+														<li data-dropdown="#view-dropdown"><a id="view-menuitem">View</a></li>
+														<li data-dropdown="#help-dropdown"><a id="help-menuitem">Help</a></li>
+													</ul>
+												</div>
+												<div class="center-menu">
+													<ul>
+														<li id="session-spinner" style="width:18px; height:12px"></li>
+														<li id="sessions-table-title">No Sessions</li>
+														<li id="expand-sessions-item" style="margin-left:4px; text-align:right; visibility:hidden; cursor:pointer"><img src="img/small-down-arrow.png"</li>
+													</ul>					
+												</div>
+												<div id="upper-right-menu" style="margin-top:1px">
+													<ul>
+														<!-- <li class="invoice-item leapforce-specific" style="cursor:pointer" data-dropdown="#invoice-dropdown"><a>Invoice</a></li> -->
+														<!-- <li class="timesheet-item lionbridge-specific" style="display:none; cursor:pointer"><a>Timesheet</a></li> -->
+														<li class="calendar-item" style="cursor:pointer" data-dropdown="#invoice-dropdown-delete"><a>Calendar</a></li>
+														<li class="mobile-item" style="cursor:pointer; display:none"><a>Mobile</a></li>
+														<li class="timer-item" style="cursor:pointer"><a>Timer</a></li>
+														<li class="goals-item" style="cursor:pointer"><a>Goals</a></li>
+													</ul>
+													<div id="timesheet-reminder" style="position:absolute; display:none; font-size:18px; text-align:left; top:0; right:-180px; color:#000; cursor:pointer"><!-- ☜ View timesheet! --></div>
+													<div id="-reminder" style="position:absolute; display:none; font-size:18px; text-align:left; top:0; right:-160px; color:#000; cursor:pointer"><!-- ☜ View !<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --></div>
+												</div>
+											</td>
+										</tr>
+										<tr class="column-header-row">
+											<td style="text-align:right; width:60px">Date</td>
+											<td style="text-align:left; width:205px">Description</td>
+											<td style="text-align:right; width:54px">Start</td>
+											<td style="text-align:right; width:60px">Stop</td>
+											<td id="session-duration-cell" class="sessions-total-header-cell" style="text-align:right; width:60px">Duration</td>
+											<td id="session-surplus-cell" class="sessions-total-header-cell" style="text-align:right; width:60px">Surplus</td>
+											<td id="session-earnings-cell" class="sessions-total-header-cell" style="text-align:right">Earnings</td>
+										</tr>
+									</table>
+								</div>
+								<div id="sessions-body-container" class="table-body-container">
+									<table id="sessions-table" class="body-table"></table>
+								</div>
+								<div class="table-footer-container"</div>
+									<table id="sessions-footer" class="footer-table">
+										<tr>
+											<td style="text-align:right; width:60px">&nbsp;</td>
+											<td style="width:205px">
+												<a id="add-session" class="context-action">Add</a>
+												<a id="edit-sessions" class="context-action">Edit</a>
+												<a id="delete-sessions" class="context-action">Delete</a>
+												<a id="zero-sessions" class="context-action">Zero</a>
+												<a id="join-sessions" class="context-action">Join</a>
+											</td>
+											<td style="width:54px; text-align:right"><a id="local-time-zone-item" class="time-zone-item" style="color:#bebebe">Local</a></td>
+											<td style="width:54px; text-align:right; display:none"><a id="pacific-time-zone-item" class="time-zone-item" style="color:black">Pacific</a></td>
+											<td style="width:60px">&nbsp;</td>
+											<td id="total-session-duration" class="sessions-total-cell gradient" style="width:60px; text-align:right; font-weight:bold"></td>
+											<td id="total-session-surplus" class="sessions-total-cell" style="width:60px; text-align:right; font-weight:bold"></td>
+											<td id="total-session-earnings" class="sessions-total-cell" style="text-align:right; font-weight:bold; padding-left:0"></td>
+										</tr>
+									</table>
+								</div>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td id="bottom-table-area">
+							<div id="tasks-table-container" class="table-container">
+								<div class="table-header-container">
+									<table id="task-header-table" class="header-table" style="position:relative">
+										<tr style="height:24px">
+											<td class="table-header-cell" colspan="7">
+												<div id="lower-left-menu" style="margin-top:1px">
+													<ul>
+														<li data-dropdown="#tasks-dropdown"><a id="tasks-menuitem">Tasks</a></li>
+														<li data-dropdown="#tasks-view-dropdown"><a id="tasks-view-menuitem">View</a></li>
+													</ul>
+												</div>
+												<div class="center-menu">
+													<ul>
+														<li id="task-spinner" style="width:18px">&nbsp;</li>
+														<li id="tasks-table-title">No Tasks</li>
+														<li id="expand-tasks-item" style="margin-left:4px; text-align:right; visibility:hidden; cursor:pointer"><img src="img/small-down-arrow.png"</li>
+													</ul>
+												</div>
+												<div id="lower-right-menu" style="margin-top:1px">
+													<ul>
+														<li class="count-item" style="cursor:pointer"><a>Count</a></li>
+													</ul>
+												</div>
+											</td>
+										</tr>
+										<tr class="column-header-row">
+											<td id="task-count-cell" style="text-align:right; width:60px">Count</td>
+											<td style="text-align:left; width:219px">Type</td>
+											<td id="task-aet-cell" style="text-align:right; width:40px" title="AET (s)">AET</td>
+											<td id="task-allotted-cell" style="text-align:right; width:60px">Total AET</td>
+											<td id="task-duration-cell" style="text-align:right; width:60px">Duration</td>
+											<td id="task-speed-cell" style="text-align:right; width:60px">Speed</td>
+											<td style="text-align:right">% of Total</td>
+										</tr>
+									</table>
+								</div>
+								<div id="tasks-body-container" class="table-body-container">
+									<table id="tasks-table" class="body-table"></table>
+								</div>
+								<div class="table-footer-container"</div>
+									<table id="tasks-footer" class="footer-table">
+										<tr>
+											<td id="total-task-count" class="tasks-total-cell gradient3" style="text-align:right; width:60px; font-weight:bold">&nbsp;</td>
+											<td style="width:219px">
+												<a id="add-tasks-item" class="context-action" style="margin-right:6px">Add</a>
+												<a id="edit-tasks-item" class="context-action" style="margin-right:6px">Edit</a>
+												<a id="delete-tasks-item" class="context-action" style="margin-right:6px">Delete</a>
+												<a id="zero-tasks-item" class="context-action" style="margin-right:6px">Zero</a>
+											</td>
+											<td style="width:40px">&nbsp;</td>
+											<td id="total-task-aet" class="tasks-total-cell gradient2" style="text-align:right; width:60px; font-weight:bold">&nbsp;</td>
+											<td id="total-task-duration" class="tasks-total-cell" style="text-align:right; width:60px; font-weight:bold">&nbsp;</td>
+											<td id="total-task-speed" class="tasks-total-cell" style="text-align:right; width:60px; font-weight:bold">&nbsp;</td>
+											<td id="total-project-pct" class="tasks-total-cell" style="text-align:right; font-weight:bold"><span id="project-percentage"></span></td>
+										</tr>
+									</table>
+								</div>
+							</div>
+						</td>					
+					</tr>
+				</table>
+			</td>
+			<td id="layout-right" style="vertical-align:top; display:none">
+				<table style="width:100%; border-collapse:collapse">
+					<tr>
+						<td style="width:100%; height:54px">
+							<div style="width:704px; height:100%; margin-right:auto">
+								<table id="top-right-header" style="width:100%; height:100%; table-layout:fixed; border-collapse:collapse">
+									<tr>
+										<td style="width:112px"></td>
+										<td style=""></td>
+										<td style="width:112px"></td>
+									</tr>
+								</table>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td id="right-table-area"></td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+</div>
+
+<div id="login-content" class="wrapper" style="width:100%; height:100%">
+	<table style="width:100%; height:100%">
+		<tr>
+			<td>
+				<table id="login-table" style="width:600px; height:400px">
+					<tr>
+						<td style="padding-bottom:6px">
+							<p style="margin-top:0"><img src="img/128x128.png"></p>
+							<p style="font-size:28px; font-weight:bold">Thanks for Using RaterAide!</p>
+							<p>Everything is stored in your Dropbox and syncs automatically.<br><br>Sign in to get started, or create an account for free.</p>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<div id="sign-in-dropbox" class="button">Sign In with Dropbox</div>
+							<div id="sign-in-google" class="button" style="display:none">Sign In with Google</div>
+							<div id="create-account-button" class="button">Create New Account</div>
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+</div>
+
+<div id="connecting-content" class="wrapper">
+	<table style="width:100%; height:360px; text-align:center">
+		<tr><td style="height:100px"></td></tr>
+		<tr><td style=""><img src="img/dropbox-busy.gif"></td></tr>
+		<tr><td style="height:50px; font-size:18px""><div style="padding-left:4px">Connecting...</div></td></tr>
+		<tr><td><span id="reload-button" style="padding:8px; text-decoration:underline; visibility:hidden"><a style="cursor:pointer; font-size:14px">Try Again</a></span></td></tr>
+	</table>
+</div>
+
+<div id="included-dialogs"></div>
+<div id="included-menus"></div>
+
+<!-- Preload this image to eliminate flicker -->
+<img src="img/checkmark.png" style="opacity:0">
+
+<!-- 1 Month Recurring -->
+<form class="paypal-form" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+<input type="hidden" name="cmd" value="_s-xclick">
+<input type="hidden" name="hosted_button_id" value="LUEVWK4VNRV6G">
+<input type="hidden" class="dropbox-uid-field" name="custom" value="">
+</form>
+
+<!-- 3 Month Non-Recurring -->
+<form class="paypal-form" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+<input type="hidden" name="cmd" value="_s-xclick">
+<input type="hidden" name="hosted_button_id" value="KBWYZN867V2KJ">
+<input type="hidden" class="dropbox-uid-field" name="custom" value="">
+</form>
+
+<!-- 6 Month Non-Recurring -->
+<form class="paypal-form" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+<input type="hidden" name="cmd" value="_s-xclick">
+<input type="hidden" name="hosted_button_id" value="NMET37TVUQULY">
+<input type="hidden" class="dropbox-uid-field" name="custom" value="">
+</form>
+
+<script type="text/javascript" src="js/lib/jquery.min.js" defer></script>
+<script type="text/javascript" src="js/lib/jquery-ui.min.js" defer></script>
+<script type="text/javascript" src="js/lib/jquery.dropdown.js" defer></script>
+<script type="text/javascript" src="js/lib/moment.min.js"></script>
+<script type="text/javascript" src="js/lib/moment-timezone.js"></script>
+<script type="text/javascript" src="js/lib/spin.min.js" defer></script>
+<script type="text/javascript" src="js/lib/jquery.datetimeentry.js" defer></script>
+<script type="text/javascript" src="js/lib/stripe-v2.js" defer></script>
+<script type="text/javascript" src="js/lib/jquery.payment.js" defer></script>
+<script type="text/javascript" src="js/lib/jquery.numeric.js" defer></script>
+<script type="text/javascript" src="js/lib/jquery.formatCurrency-1.4.0.js" defer></script>
+<script type="text/javascript" src="js/lib/spectrum.js" defer></script>
+<script type="text/javascript" src="js/index.js" defer></script>
+
+</body>
+</html>

@@ -1,0 +1,2148 @@
+<div id="generic-dialog" class="dialog">
+	<p></p>
+	<p></p>
+</div>
+
+<div id="about-dialog" class="dialog selectable">
+	<p><span id="version-string"></span></p>
+	<p>RaterAide is produced by an independent developer and fellow rater.<br>It is a product not of genius or of skill, but of hard work.</p>
+	<p>Copyright © 2012-2017 RaterAide. All rights reserved.</p>
+</div>
+
+<div id="filepicker-dialog" class="dialog" data-width="600">
+	<div id="filepicker-header-container">
+		<table id="filepicker-header" style="width:100%">
+			<tr>
+				<td style="min-width:24px; cursor:pointer" class="dropbox-link"><img src="img/dropbox-small.png"></td>
+				<td style="cursor:pointer" class="dropbox-link"><a style="text-decoration:underline">Dropbox/Apps/RaterAide/</a></td>
+				<td id="import-cell" style="width:100%"><span id="filepicker-infilename">*.json</span></td>
+				<td id="export-cell" style="width:100%; display:none"><input id="filepicker-outfilename" type="text" spellcheck="false"></td>
+			</tr>	
+		</table>
+	</div>
+	<div id="filepicker-table-container">
+		<table id="filepicker-column-header" style="width:100%">
+			<thead>
+				<tr>
+					<th style="width:60%">Filename</th>
+					<th>Date Modified</th>
+				<tr>
+			</thead>
+		</table>
+		<div id="filepicker-table-body-container">
+			<table id="filepicker-table"></table>
+		</div>
+	</div>
+	<div id="export-format-container" style="padding-top:8px; display:none">
+		<table style="width:100%">
+			<tr>
+				<td style="text-align:right; width:42%">Format:</td>
+				<td>
+					<select id="export-format" style="">
+						<option value="radata">RaterAide Backup</option>
+						<option value="csv-sessions">CSV, Sessions</option>
+						<option value="csv-tasks">CSV, Tasks</option>
+					</select>
+				</td>
+			</tr>
+		</table>
+	</div>
+</div>
+
+<div id="edit-dialog" class="dialog">
+	<table class="content">
+		<tr>
+			<td style="padding:0; width:100%" colspan="4">
+				<table style="border-collapse:collapse; border-spacing:0; margin:0; padding:0; width:100%">
+					<tr>
+						<td style="height:50px; width:99%">
+							<div class="floating-label">Description</div>
+							<input id="session-name" class="description" type="text" name="name" spellcheck="false">
+						</td>
+						<td id="session-project-container" style="padding-left:12px; display:none">
+							<div class="floating-label">Project</div>
+							<select id="session-project" name="project" style="background:white; margin:5px auto 0 auto; height:24px">
+								<option value="0">Yukon</option>
+								<option value="2">Nile</option>
+								<option value="3">Blue Nile</option>
+								<option value="5">White Nile</option>
+								<option value="6">Caribou</option>
+								<option value="10">Danube</option>
+								<option value="14">Hudson</option>
+								<option value="13">Kern</option>
+								<option value="7">Kwango</option>
+								<option value="8">Platte</option>
+								<option value="11">Shasta</option>
+								<option value="4">Sonora</option>
+								<option value="12">Tahoe</option>
+								<option value="9">Thames</option>
+								<option value="15">Truckee</option>
+							</select>
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		<tr>
+			<td class="date" style="height:50px; width:110px">
+				<div class="floating-label">Date</div>
+				<ul class="date">
+					<li><input id="start-time-date" type="text" name="start" class="date start" spellcheck="false"></li>
+				</ul>
+			</td>
+			<td class="start" style="width:110px">
+				<div class="floating-label">Start</div>
+				<ul class="start">
+					<li><input id="start-time-hour" type="text" name="start" class="time hour start"></li>
+					<li style="width:3px; font-weight:bold">:</li>
+					<li><input id="start-time-minute" type="text" name="start" class="time start"></li>
+					<li><input id="start-time-ampm" type="text" name="ampm" class="time start ampm"></li>
+				</ul>
+			</td>
+			<td class="stop" style="width:110px">
+				<div class="floating-label">Stop</div>
+				<ul class="stop">
+					<li><input id="stop-time-hour" type="text" name="stop" class="time hour stop"></li>
+					<li style="width:3px; font-weight:bold">:</li>
+					<li><input id="stop-time-minute" type="text" name="stop" class="time stop"></li>
+					<li><input id="stop-time-ampm" type="text" name="ampm" class="time stop ampm"></li>
+				</ul>
+			</td>
+			<td class="spinner">
+				<ul>
+					<li style="width:24px" class="ui-button ui-widget ui-state-default ui-button-text-only stepper">
+						<img src="img/minus.png" style="margin-top:4px"/>
+					</li>
+					<li style="width:24px; margin-right:-5px" class="ui-button ui-widget ui-state-default ui-button-text-only stepper">
+						<img src="img/plus.png" style="margin-top:4px"/>
+					</li>
+				</ul>
+			</td>
+		</tr>
+		<tr id="diff-row">
+			<td style="width:110px; height:50px">
+				<div class="floating-label duration">Duration</div>
+				<input id="total-session-duration" type="text" class="totals" style="width:93px; border:1px solid LightGray" disabled></input>
+			</td>
+			<td style="width:110px">
+				<div class="floating-label speed">Speed</div>
+				<input id="total-session-speed" type="text" class="totals" style="width:93px; border:1px solid LightGray" disabled></input>
+			</td>
+			<td style="width:110px">
+				<div class="floating-label earnings">Earnings</div>
+				<input id="total-session-earnings" type="text" class="totals" style="width:93px; border:1px solid LightGray" disabled></input>
+			</td>
+			<td class="spinner">
+				<ul style="margin:0; margin-bottom:4px"><li id="zero-button" style="width:55px; height:26px; padding:0; margin:0" class="ui-button ui-widget ui-state-default ui-button-text-only ui-state-disabled"><span style="font-size:16px">Zero</span></li></ul>
+			</td>
+		</tr>
+		<tr id="no-diff-row" style="display:none">
+			<td id="edit-reminder" style="padding:12px 0 24px 0; font-weight:bold; text-align:center" colspan="4">
+				Note: Edit tasks to change the session duration.
+			</td>
+			<td id="add-reminder" style="display:none; padding:12px 0 24px 0; font-weight:bold; text-align:center" colspan="4">
+				Note: Add tasks to change the session duration.
+			</td>
+		</tr>
+		<tr>
+			<td colspan="4">
+				<textarea id="session-note" placeholder="Notes" name="note"></textarea>
+			</td>
+		</tr>
+	</table>
+</div>
+
+<div id="add-tasks-dialog" class="dialog">
+	<table>
+		<tr>
+			<td style="padding:0">
+				<table style="border-collapse:collapse; border-spacing:0; margin:0; padding:0">
+					<td style="height:50px; padding-right:6px; width:15%">
+						<div class="floating-label">Count</div>
+						<input id="task-type-count" style="width:100%; box-sizing:border-box" type="text" class="taskcount" maxlength="3">
+					</td>
+					<td style="padding-right:6px">
+						<div class="floating-label">Type</div>
+						<input id="task-type-name" style="width:100%; box-sizing:border-box" type="text" class="tasktype" spellcheck="false">
+					</td>
+					<td>
+						<div class="floating-label">Device</div>
+						<select id="task-type-device" style="height:24px; background:white">
+							<option value="0">Desktop</option>
+							<option value="1">Android Phone</option>
+							<option value="2">Android Tablet</option>
+							<option value="8">iPhone</option>
+							<option value="9">iPad</option>
+						</select>
+					</td>
+				</table>
+			</td>
+		</tr>
+		<tr>
+			<td style="padding:0">
+				<table style="border-collapse:collapse; border-spacing:0; margin:0; padding:0">
+					<tr>
+						<td style="padding-right:6px; width:33%; height:50px">
+							<div class="floating-label">AET</div>
+							<input id="task-type-aet" style="width:100%; box-sizing:border-box" type="text" class="taskaet" maxlength="5">
+						</td>
+						<td style="padding-right:6px">
+							<div class="floating-label">Total AET</div>
+							<input id="task-type-total-aet" style="width:100%; box-sizing:border-box" type="text" class="taskaet" disabled>
+						</td>
+						<td style="width:35%">
+							<div class="floating-label">Duration</div>
+							<input id="task-type-duration" style="width:100%; box-sizing:border-box" type="text" class="taskaet">
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+</div>
+
+<div id="options-dialog" class="dialog" style="padding-top:0 !important">
+	<table id="options-tabs" style="width:100%; margin-bottom:4px; margin-top:8px; cursor:default">
+		<tr>
+			<td>General</td>
+			<td>Wages</td>
+			<td>Goals</td>
+			<td>Reload</td>
+			<td>Submit</td>
+			<td>Timer</td>
+			<td>Advanced</td>
+		</tr>
+		<tr><td colspan="7" class="rule"><hr /></td></tr>
+	</table>
+	<table id="general-options" style="width:100%; height:100%; margin-top:2px; margin-bottom:6px">
+		<tr>
+			<td style="padding-right:6px; text-align:right">Begin session:</td>
+			<td style="width:18px"><input id="start-on-acquire" type="checkbox"/></td>
+			<td><label for="start-on-acquire">When a task is acquired</label></td>
+		</tr>
+		<tr>
+			<td style="text-align:right"></td>
+			<td colspan="2" style="padding:0">
+				<table style="border-collapse:collapse; border-spacing:0; margin:0; padding:0">
+					<tr>
+						<td style="width:18px"><input id="midnight-restart" type="checkbox"/></td>
+						<td><label for="midnight-restart">When a new day begins</label></td>
+						<td style="padding-left:4px">
+							<select id="midnight-restart-mode">
+								<option value="0">After Submit</option>
+								<option value="1">At Midnight</option>
+							</select>
+						</td>
+				</table>
+			</td>
+		</tr>
+		<tr><td colspan="3" style="padding-bottom:4px; padding-top:4px"><hr /></td></tr>
+		<tr>
+			<td style="padding-right:6px; text-align:right">End session:</td>
+			<td style="width:18px"><input id="autologout-enabled" type="checkbox"/></td>
+			<td colspan="2">
+				<label for="autologout-enabled">After</label>
+				<select id="autologout-interval-picker">
+					<option value="1">1 Hour</option>
+					<option value="2">2 Hours</option>
+					<option value="3">3 Hours</option>
+				</select>
+				<label for="autologout-enabled">of inactivity</label>
+			</td>
+		</tr>
+		<tr><td></td></tr>
+		<tr>
+			<td></td>
+			<td colspan="2" style="padding:0">
+				<table style="border-collapse:collapse; border-spacing:0; margin:0; padding:0">
+					<tr>
+						<td style="width:18px"><input id="stop-on-index" type="checkbox"/></td>
+						<td><label for="stop-on-index">When returning to home page</label></td>
+						<td></td>
+						<td style="width:18px"><input id="stop-on-nrt" type="checkbox"/></td>
+						<td><label for="stop-on-nrt">if no tasks</label></td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		<tr><td></td></tr>
+		<tr>
+			<td style="text-align:right"></td>
+			<td style="width:18px"><input id="stop-on-sasr" type="checkbox"/></td>
+			<td><label for="stop-on-sasr">When "Submit and Stop Rating" is clicked</label></td>
+		</tr>
+		<tr><td colspan="3" style="padding-bottom:4px; padding-top:4px"><hr /></td></tr>
+		
+		
+		<tr class="locale">
+			<td style="text-align:right; padding-right:6px; width:40%">Start of day:</td>
+			<td colspan="2">
+				<select id="date-offset-picker" style="width:200px">
+					<option value="0">Midnight (Pacific Time)</option>
+					<option value="1">Midnight (Local Time)</option>
+				</select>
+			</td>
+		</tr>
+		<tr class="locale">
+			<td style="text-align:right; padding-right:6px">Start of week:</td>
+			<td colspan="2">
+				<select id="week-offset-picker" style="width:200px">
+					<option value="0">Sunday</option>
+					<option value="1">Monday</option>
+					<option value="2">Tuesday</option>
+					<option value="3">Wednesday</option>
+					<option value="4">Thursday</option>
+					<option value="5">Friday</option>
+					<option value="6">Saturday</option>
+				</select>
+			</td>
+		</tr>
+		<tr><td colspan="3" style="padding-bottom:4px; padding-top:4px"><hr /></td></tr>
+		
+		
+		<tr class="premium-features">
+			<td style="padding-right:6px; text-align:right"><a class="account-item">RaterAide Pro</a>:</td>
+			<td style="width:18px; padding:0; margin:0"><input id="task-features-enabled" type="checkbox"/></td>
+			<td style="padding-left:2px"><a id="configure-link-openers">Task Features</a></td>
+		</tr>
+		<tr class="premium-features">
+			<td style="text-align:right"></td>
+			<td style="width:18px; padding:0; margin:0"><input id="show-querybar" type="checkbox"/></td>
+			<td style="padding-left:2px"><a id="configure-querybar">Query Bar</a></td>
+		</tr>
+		<tr class="premium-features" style="display:none">
+			<td style="text-align:right"></td>
+			<td style="width:18px; padding:0; margin:0"><input id="adblock-enabled" type="checkbox"/></td>
+			<td style="padding-left:2px"><a id="configure-blocker">Anti-Paywall</a></td>
+		</tr>
+		<tr class="premium-features">
+			<td style="text-align:right"></td>
+			<td style="width:18px; padding:0; margin:0"><input id="search-extension-enabled" type="checkbox"/></td>
+			<td style="padding-left:2px"><label for="search-extension-enabled">Search Extension</label></td>
+		</tr>
+		<tr class="premium-features">
+			<td style="text-align:right"></td>
+			<td style="width:18px; padding:0; margin:0"><input id="send-to-mobile-app" type="checkbox"/></td>
+			<td style="padding-left:2px"><a id="configure-mobile-app">Send to Mobile</a></label></td>
+		</tr>
+	</table>
+	
+	
+	<table style="margin:6px auto; width:100%">
+		<tr>
+			<td style="padding:0; width:40%">
+				<table style="border-collapse:collapse; border-spacing:0; margin:0; padding:0; float:right">
+					<tr class="leapforce-specific">
+						<td>
+							<select id="project-for-wage">
+								<option value="0">Yukon</option>
+								<option value="2">Nile</option>
+								<option value="3">Blue Nile</option>
+								<option value="5">White Nile</option>
+								<option value="6">Caribou</option>
+								<option value="10">Danube</option>
+								<option value="14">Hudson</option>
+								<option value="13">Kern</option>
+								<option value="7">Kwango</option>
+								<option value="8">Platte</option>
+								<option value="11">Shasta</option>
+								<option value="4">Sonora</option>
+								<option value="12">Tahoe</option>
+								<option value="9">Thames</option>
+								<option value="15">Truckee</option>
+							</select></td>
+						<td style="padding-left:6px; padding-right:6px; white-space:nowrap">hourly rate:</td>
+					</tr>
+					<tr class="lionbridge-specific"><td style="padding-right:6px">Hourly rate:</td></tr>
+				</table>
+			</td>
+			<td colspan="2" style="padding:0">
+				<table style="border-collapse:collapse; border-spacing:0; margin:0; padding:0; width:200px">
+					<tr>
+						<td style="width:99%"><input type="text" class="wage-field" style="padding-left:4px; padding-right:4px; width:80px; box-sizing:border-box"></td>
+						<td style="padding-left:4px">
+							<select id="disbursed-currency">
+								<option value="BRL">Brazilian Real (BRL)</option>
+								<option value="CAD">Canadian Dollar (CAD)</option>
+								<option value="EGP">Egyptian Pound (EGP)</option>
+								<option value="EUR">Euro (EUR)</option>
+								<option value="HKD">Hong Kong Dollar (HKD)</option>
+								<option value="INR">Indian Rupee (INR)</option>
+								<option value="IDR">Indonesian Rupiah (IDR)</option>
+								<option value="JPY">Japanese Yen (JPY)</option>
+								<option value="TWD">New Taiwan Dollar (TWD)</option>
+								<option value="GBP">Pound Sterling (GBP)</option>
+								<option value="RUB">Russian Ruble (RUB)</option>
+								<option value="USD" selected>United States Dollar (USD)</option>
+							</select>
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+
+		<tr style="display:none"><td colspan="3" style="padding-bottom:4px; padding-top:4px"><hr /></td></tr>
+
+		<tr style="display:none">
+			<td style="text-align:right; padding-right:6px; vertical-align:top"><a class="account-item">RaterAide Pro</a>:</td>
+			<td colspan="2">
+				<table>
+					<tr>
+						<td><input type="checkbox" id="displayed-currency-convert"/></td>
+						<td><label for="displayed-currency-convert" style="margin-right:2px">Convert to:</label></td>
+						<td>
+							<select id="displayed-currency">
+								<option value="BRL">Brazilian Real (BRL)</option>
+								<option value="CAD">Canadian Dollar (CAD)</option>
+								<option value="EGP">Egyptian Pound (EGP)</option>
+								<option value="EUR" selected>Euro (EUR)</option>
+								<option value="HKD">Hong Kong Dollar (HKD)</option>
+								<option value="INR">Indian Rupee (INR)</option>
+								<option value="IDR">Indonesian Rupiah (IDR)</option>
+								<option value="JPY">Japanese Yen (JPY)</option>
+								<option value="TWD">New Taiwan Dollar (TWD)</option>
+								<option value="GBP">Pound Sterling (GBP)</option>
+								<option value="RUB">Russian Ruble (RUB)</option>
+								<option value="USD" disabled>United States Dollar (USD)</option>
+							</select>
+						</td>
+					</tr>
+					<tr><td style="height:2px"></td></tr>
+					<tr>
+						<td></td>
+						<td></td>
+						<td>
+							<span style="margin-left:4px" id="exchange-rate" class="selectable"></span><span style="margin-left:6px" id="exchange-rate-date"></span>
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		<tr class="exchange-rate-row" style="display:none"><td style="padding:5px 0 0 0"></td></tr>
+		<tr class="exchange-rate-row" style="display:none">
+			<td style="text-align:right; padding-right:6px"></td>
+			<td colspan="2" style="padding-left:2px"></td>
+		</tr>
+		
+		<tr>
+		
+		</tr>
+	</table>
+	
+	
+	
+	<table style="margin:6px auto 6px auto; width:100%">
+		<tr>
+			<td style="padding-right:4px; text-align:right; width:33%">Show an alert for each <strong>SESSION</strong>:</td>
+			<td colspan="2" style="padding:0">
+				<table style="border-collapse:collapse; border-spacing:0; margin:0; padding:0">
+					<tr>
+						<td style="width:18px"><input id="session-goal-enabled" type="checkbox"></td>
+						<td style="white-space:nowrap"><label for="session-goal-enabled">When</label></td>
+						<td style="padding-left:4px">
+							<select id="session-goal-mode">
+								<option value="duration">Duration</option>
+								<option value="aet">Total AET</option>
+							</select>
+						</td>
+						<td style="padding-left:4px; white-space:nowrap"><label>reaches:</label></td>
+						<td style="padding-left:6px">
+							<select id="session-goal-hours">
+								<option value="0">0</option>
+								<option value="1">1</option>
+								<option value="2" selected>2</option>
+								<option value="3">3</option>
+								<option value="4">4</option>
+								<option value="5">5</option>
+								<option value="6">6</option>
+								<option value="7">7</option>
+								<option value="8">8</option>
+								<option value="9">9</option>
+								<option value="10">10</option>
+								<option value="11">11</option>
+								<option value="12">12</option>
+								<option value="13">13</option>
+								<option value="14">14</option>
+								<option value="15">15</option>
+								<option value="16">16</option>
+								<option value="17">17</option>
+								<option value="18">18</option>
+								<option value="19">19</option>
+								<option value="20">20</option>
+								<option value="21">21</option>
+								<option value="22">22</option>
+								<option value="23">23</option>
+							</select>
+						</td>
+						<td style="padding-left:6px; padding-right:6px">h</td>
+						<td>
+							<select id="session-goal-minutes">
+								<option value="0" selected>0</option>
+								<option value="5">5</option>
+								<option value="10">10</option>
+								<option value="15">15</option>
+								<option value="20">20</option>
+								<option value="25">25</option>
+								<option value="30">30</option>
+								<option value="35">35</option>
+								<option value="40">40</option>
+								<option value="45">45</option>
+								<option value="50">50</option>
+								<option value="55">55</option>
+							</select>
+						</td>
+						<td style="padding-left:6px; width:99%">m</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		<tr><td></td></tr>
+		<tr>
+			<td></td>
+			<td colspan="2" style="padding:0">
+				<table style="border-collapse:collapse; border-spacing:0; margin:0; padding:0">
+					<tr>
+						<td style="width:18px"><input id="session-goal-fore-enabled" type="checkbox"></td>
+						<td style="padding-right:6px"><label for="session-goal-fore-enabled">Alert</td>
+						<td style="padding-right:6px">
+							<select id="session-goal-fore">
+								<option value="5">5</option>
+								<option value="10" selected>10</option>
+								<option value="15">15</option>
+								<option value="20">20</option>
+								<option value="25">25</option>
+								<option value="30">30</option>
+								<option value="35">35</option>
+								<option value="40">40</option>
+								<option value="45">45</option>
+								<option value="50">50</option>
+								<option value="55">55</option>
+								<option value="60">60</option>
+							</select>
+						</td>
+						<td><label for="session-goal-fore-enabled">minutes before</td>
+						<td style="width:18px"><input id="session-goal-repeat" type="checkbox"></td>
+						<td><label for="session-goal-repeat">repeating</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		<tr><td></td><td colspan="2" style="padding:10px 0"><hr /></td></tr>
+		<tr>
+			<td style="padding-right:4px; text-align:right; width:33%">Show an alert for each <strong>DAY</strong>:</td>
+			<td colspan="2" style="padding:0">
+				<table style="border-collapse:collapse; border-spacing:0; margin:0; padding:0">
+					<tr>
+						<td style="width:18px"><input id="day-goal-enabled" type="checkbox"></td>
+						<td style="white-space:nowrap"><label for="day-goal-enabled">When</label></td>
+						<td style="padding-left:4px">
+							<select id="day-goal-mode">
+								<option value="duration">Duration</option>
+								<option value="aet">Total AET</option>
+							</select>
+						</td>
+						<td style="padding-left:4px; white-space:nowrap"><label>reaches:</label></td>
+						<td style="padding-left:6px">
+							<select id="day-goal-hours">
+								<option value="0">0</option>
+								<option value="1">1</option>
+								<option value="2">2</option>
+								<option value="3">3</option>
+								<option value="4">4</option>
+								<option value="5">5</option>
+								<option value="6">6</option>
+								<option value="7">7</option>
+								<option value="8" selected>8</option>
+								<option value="9">9</option>
+								<option value="10">10</option>
+								<option value="11">11</option>
+								<option value="12">12</option>
+								<option value="13">13</option>
+								<option value="14">14</option>
+								<option value="15">15</option>
+								<option value="16">16</option>
+								<option value="17">17</option>
+								<option value="18">18</option>
+								<option value="19">19</option>
+								<option value="20">20</option>
+								<option value="21">21</option>
+								<option value="22">22</option>
+								<option value="23">23</option>
+							</select>
+						</td>
+						<td style="padding-left:6px; padding-right:6px">h</td>
+						<td>
+							<select id="day-goal-minutes">
+								<option value="0" selected>0</option>
+								<option value="5">5</option>
+								<option value="10">10</option>
+								<option value="15">15</option>
+								<option value="20">20</option>
+								<option value="25">25</option>
+								<option value="30">30</option>
+								<option value="35">35</option>
+								<option value="40">40</option>
+								<option value="45">45</option>
+								<option value="50">50</option>
+								<option value="55">55</option>
+							</select>
+						</td>
+						<td style="padding-left:6px">m</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		<tr><td></td></tr>
+		<tr>
+			<td></td>
+			<td colspan="2" style="padding:0">
+				<table style="border-collapse:collapse; border-spacing:0; margin:0; padding:0">
+					<tr>
+						<td style="width:18px"><input id="day-goal-fore-enabled" type="checkbox"></td>
+						<td style="padding-right:6px"><label for="day-goal-fore-enabled">Alert</td>
+						<td style="padding-right:6px">
+							<select id="day-goal-fore">
+								<option value="5">5</option>
+								<option value="10" selected>10</option>
+								<option value="15">15</option>
+								<option value="20">20</option>
+								<option value="25">25</option>
+								<option value="30">30</option>
+								<option value="35">35</option>
+								<option value="40">40</option>
+								<option value="45">45</option>
+								<option value="50">50</option>
+								<option value="55">55</option>
+								<option value="60">60</option>
+							</select>
+						</td>
+						<td><label for="day-goal-fore-enabled">minutes before</td>
+						<td style="width:18px"><input id="day-goal-repeat" type="checkbox"></td>
+						<td><label for="day-goal-repeat">repeating</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		<tr><td></td><td colspan="2" style="padding:4px 0"><hr /></td></tr>
+		<tr>
+			<td style="padding-right:4px; text-align:right; width:35%">Show an alert for each <strong>WEEK</strong>:</td>
+			<td colspan="2" style="padding:0">
+				<table style="border-collapse:collapse; border-spacing:0; margin:0; padding:0">
+					<tr>
+						<td style="width:18px"><input id="week-goal-enabled" type="checkbox"></td>
+						<td style="white-space:nowrap"><label for="week-goal-enabled">When</label></td>
+						<td style="padding-left:4px">
+							<select id="week-goal-mode">
+								<option value="duration">Duration</option>
+								<option value="aet">Total AET</option>
+							</select>
+						</td>
+						<td style="padding-left:4px; white-space:nowrap"><label>reaches:</label></td>
+						<td style="padding-left:6px">
+							<select id="week-goal-hours">
+								<option value="0">0</option>
+								<option value="1">1</option>
+								<option value="2">2</option>
+								<option value="3">3</option>
+								<option value="4">4</option>
+								<option value="5">5</option>
+								<option value="6">6</option>
+								<option value="7">7</option>
+								<option value="8">8</option>
+								<option value="9">9</option>
+								<option value="10">10</option>
+								<option value="11">11</option>
+								<option value="12">12</option>
+								<option value="13">13</option>
+								<option value="14">14</option>
+								<option value="15">15</option>
+								<option value="16">16</option>
+								<option value="17">17</option>
+								<option value="18">18</option>
+								<option value="19">19</option>
+								<option value="20" selected>20</option>
+								<option value="21">21</option>
+								<option value="22">22</option>
+								<option value="23">23</option>
+								<option value="24">24</option>
+								<option value="25">25</option>
+								<option value="26">26</option>
+								<option value="27">27</option>
+								<option value="28">28</option>
+								<option value="29">29</option>
+								<option value="30">30</option>
+								<option value="31">31</option>
+								<option value="32">32</option>
+								<option value="33">33</option>
+								<option value="34">34</option>
+								<option value="35">35</option>
+								<option value="36">36</option>
+								<option value="37">37</option>
+								<option value="38">38</option>
+								<option value="39">39</option>
+								<option value="40">40</option>
+							</select>
+						</td>
+						<td style="padding-left:6px; padding-right:6px">h</td>
+						<td>
+							<select id="week-goal-minutes">
+								<option value="0" selected>0</option>
+								<option value="5">5</option>
+								<option value="10">10</option>
+								<option value="15">15</option>
+								<option value="20">20</option>
+								<option value="25">25</option>
+								<option value="30">30</option>
+								<option value="35">35</option>
+								<option value="40">40</option>
+								<option value="45">45</option>
+								<option value="50">50</option>
+								<option value="55">55</option>
+							</select>
+						</td>
+						<td style="padding-left:6px">m</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		<tr><td></td></tr>
+		<tr>
+			<td></td>
+			<td colspan="2" style="padding:0">
+				<table style="border-collapse:collapse; border-spacing:0; margin:0; padding:0">
+					<tr>
+						<td style="width:18px"><input id="week-goal-fore-enabled" type="checkbox"></td>
+						<td style="padding-right:6px"><label for="week-goal-fore-enabled">Alert</td>
+						<td style="padding-right:6px">
+							<select id="week-goal-fore">
+								<option value="5">5</option>
+								<option value="10" selected>10</option>
+								<option value="15">15</option>
+								<option value="20">20</option>
+								<option value="25">25</option>
+								<option value="30">30</option>
+								<option value="35">35</option>
+								<option value="40">40</option>
+								<option value="45">45</option>
+								<option value="50">50</option>
+								<option value="55">55</option>
+								<option value="60">60</option>
+							</select>
+						</td>
+						<td><label for="week-goal-fore-enabled">minutes before</td>
+						<td style="width:18px"><input id="week-goal-repeat" type="checkbox"></td>
+						<td><label for="week-goal-repeat">repeating</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		<tr><td></td><td colspan="2" style="padding:4px 0"><hr /></td></tr>
+		<tr>
+			<td style="padding-right:4px; text-align:right; width:35%">Show an alert for each <strong>MONTH</strong>:</td>
+			<td colspan="2" style="padding:0">
+				<table style="border-collapse:collapse; border-spacing:0; margin:0; padding:0">
+					<tr>
+						<td style="width:18px"><input id="month-goal-enabled" type="checkbox"></td>
+						<td style="white-space:nowrap"><label for="month-goal-enabled">When</label></td>
+						<td style="padding-left:4px">
+							<select id="month-goal-mode">
+								<option value="duration">Duration</option>
+								<option value="aet">Total AET</option>
+							</select>
+						</td>
+						<td style="padding-left:4px; white-space:nowrap"><label>reaches:</label></td>
+						<td style="padding-left:6px">
+							<select id="month-goal-hours">
+								<option value="40">40</option>
+								<option value="45">45</option>
+								<option value="50">50</option>
+								<option value="55">55</option>
+								<option value="60">60</option>
+								<option value="65">65</option>
+								<option value="70">70</option>
+								<option value="75">75</option>
+								<option value="80" selected>80</option>
+								<option value="85">85</option>
+								<option value="90">90</option>
+								<option value="95">95</option>
+								<option value="100">100</option>
+								<option value="105">105</option>
+								<option value="110">110</option>
+								<option value="115">115</option>
+								<option value="120">120</option>
+								<option value="125">125</option>
+								<option value="130">130</option>
+								<option value="135">135</option>
+								<option value="140">140</option>
+								<option value="145">145</option>
+								<option value="150">150</option>
+								<option value="155">155</option>
+								<option value="160">160</option>
+								<option value="165">165</option>
+								<option value="170">170</option>
+								<option value="175">175</option>
+								<option value="180">180</option>
+								<option value="185">185</option>
+								<option value="190">190</option>
+								<option value="195">195</option>
+								<option value="200">200</option>
+							</select>
+						</td>
+						<td style="padding-left:6px; padding-right:6px">h</td>
+						<td>
+							<select id="month-goal-minutes">
+								<option value="0" selected>0</option>
+								<option value="5">5</option>
+								<option value="10">10</option>
+								<option value="15">15</option>
+								<option value="20">20</option>
+								<option value="25">25</option>
+								<option value="30">30</option>
+								<option value="35">35</option>
+								<option value="40">40</option>
+								<option value="45">45</option>
+								<option value="50">50</option>
+								<option value="55">55</option>
+							</select>
+						</td>
+						<td style="padding-left:6px">m</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		<tr><td></td></tr>
+		<tr>
+			<td></td>
+			<td colspan="2" style="padding:0">
+				<table style="border-collapse:collapse; border-spacing:0; margin:0; padding:0">
+					<tr>
+						<td style="width:18px"><input id="month-goal-fore-enabled" type="checkbox"></td>
+						<td style="padding-right:6px"><label for="month-goal-fore-enabled">Alert</td>
+						<td style="padding-right:6px">
+							<select id="month-goal-fore">
+								<option value="5">5</option>
+								<option value="10" selected>10</option>
+								<option value="15">15</option>
+								<option value="20">20</option>
+								<option value="25">25</option>
+								<option value="30">30</option>
+								<option value="35">35</option>
+								<option value="40">40</option>
+								<option value="45">45</option>
+								<option value="50">50</option>
+								<option value="55">55</option>
+								<option value="60">60</option>
+							</select>
+						</td>
+						<td><label for="month-goal-fore-enabled">minutes before</td>
+						<td style="width:18px"><input id="month-goal-repeat" type="checkbox"></td>
+						<td><label for="month-goal-repeat">repeating</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+	<table style="margin:6px auto 6px auto; width:100%">
+		<tr>
+			<td style="padding-right:4px; text-align:right">Reload Rater Hub:</td>
+			<td colspan="2">
+				<table style="border-collapse:collapse; border-spacing:0; margin:0; padding:0">
+					<tr>
+						<td style="width:18px"><input id="reload-enabled" type="checkbox"></td>
+						<td style="white-space:nowrap"><label for="reload-enabled">Every:</label></td>
+						<td style="padding-left:4px">
+							<select id="reload-interval-minutes">
+								<option value="0">0m</option>
+								<option value="1" selected>1m</option>
+								<option value="2">2m</option>
+								<option value="3">3m</option>
+								<option value="4">4m</option>
+								<option value="5">5m</option>
+								<option value="10">10m</option>
+								<option value="15">15m</option>
+								<option value="20">20m</option>
+								<option value="25">25m</option>
+								<option value="30">30m</option>
+								<option value="35">35m</option>
+								<option value="40">40m</option>
+								<option value="45">45m</option>
+								<option value="50">50m</option>
+								<option value="55">55m</option>
+								<option value="60">60m</option>
+							</select>
+						</td>
+						<td style="padding-left:4px">
+							<select id="reload-interval-seconds">
+								<option value="0" selected>0s</option>
+								<option value="2">2s</option>
+								<option value="5">5s</option>
+								<option value="10">10s</option>
+								<option value="15">15s</option>
+								<option value="20">20s</option>
+								<option value="25">25s</option>
+								<option value="30">30s</option>
+								<option value="35">35s</option>
+								<option value="40">40s</option>
+								<option value="45">45s</option>
+								<option value="50">50s</option>
+								<option value="55">55s</option>
+							</select>
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		<tr><td></td></tr>
+		<tr>
+			<td></td>
+			<td colspan="2">
+				<table style="border-collapse:collapse; border-spacing:0; margin:0; padding:0">
+					<tr>
+						<td style="width:18px"><input id="reload-auto-acquire" type="checkbox"></td>
+						<td><label for="reload-auto-acquire">Auto-Acquire:</label></td>
+						<td style="padding-left:4px">
+							<select id="reload-acquire-mode">
+								<option value="0" selected>When "No Tasks Available"</option>
+								<option value="1">When timer is running</option>
+							</select>
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		<tr><td colspan="3" style=""><hr></td></tr>
+		<tr>
+			<td style="padding-top:2px; padding-right:4px; text-align:right; vertical-align:top">Task types:</td>
+			<td colspan="2">
+				<table id="reload-types" style="border-collapse:collapse; border-spacing:0; margin:0; padding:0">
+					<tr>
+						<td style="width:18px"><input id="type-b" class="type" type="checkbox" value="2"></td>
+						<td style=""><label for="type-b" style="">EXP</label></td>
+						<td style="width:18px"><input id="type-a" class="type" type="checkbox" value="1"></td>
+						<td style=""><label for="type-a" style="">EXP²</label></td>
+						<td style="width:4px"></td>
+						<td style="width:18px"><input id="type-d" class="type" type="checkbox" value="3"></td>
+						<td style=""><label for="type-d" style="">SxS</label></td>
+						<td style="width:18px"><input id="type-e" class="type" type="checkbox" value="4"></td>
+						<td style="padding:0"><label for="type-e" style="">SxS²</label></td>
+						<td style="width:4px"></td>
+						<td style="width:18px"><input id="type-c" class="type" type="checkbox" value="0"></td>
+						<td style=""><label for="type-c" style="">RR</label></td>
+						<td style="width:4px"></td>
+						<td style="width:18px"><input id="type-f" class="type" type="checkbox" value="5"></td>
+						<td style=""><label for="type-f" style="">Mobile</label></td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		<tr><td></td></tr>
+		<tr>
+			<td></td>
+			<td colspan="2">
+				<table style="border-collapse:collapse; border-spacing:0; margin:0; padding:0">
+					<tr>
+						<td style="width:18px"><input id="reload-monitor-changes" type="checkbox"></td>
+						<td colspan="2"><label for="reload-monitor-changes">Alert only when "No Tasks Available"</label></td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		<tr><td colspan="3" style=""><hr></td></tr>
+		<tr>
+			<td style="padding-right:4px; text-align:right">Desktop notifications:</td>
+			<td colspan="2">
+				<table style="border-collapse:collapse; border-spacing:0; margin:0; padding:0">
+					<tr>
+						<td style="width:18px"><input id="show-reloader-notification" type="checkbox"></td>
+						<td colspan="2"><label for="show-reloader-notification">Show on-screen notification</label></td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td colspan="2">
+				<table style="border-collapse:collapse; border-spacing:0; margin:0; padding:0">
+					<tr>
+						<td style="width:18px"><input id="reload-sound-enabled" type="checkbox"></td>
+						<td style="padding-right:6px"><label for="reload-sound-enabled">Play sound:</label></td>
+						<td style="padding-right:6px">
+							<select id="reload-sound-name">
+								<optgroup label="Music">
+									<option value="default" selected>Default</option>
+									<option value="blues">Blues</option>
+									<option value="country">Country</option>
+									<option value="latin">Latin</option>
+									<option value="oldies">Oldies</option>
+									<option value="punk-rock">Punk Rock</option>
+									<option value="r&b">R&B</option>
+									<option value="rap">Rap</option>
+									<option value="reggae">Reggae</option>
+									<option value="rock">Rock</option>
+									<option value="soul">Soul</option>
+									<option value="random">Random</option>
+								</optgroup>
+								<optgroup label="Tones">
+									<option value="tones/accept">Tone 1</option>
+									<option value="tones/congrats">Tone 2</option>
+									<option value="tones/decline">Tone 3</option>
+									<option value="tones/get">Tone 4</option>
+									<option value="tones/ring">Tone 5</option>
+									<option value="tones/send">Tone 6</option>
+									<option value="tones/system">Tone 7</option>
+									<option value="tones/system-error">Tone 8</option>
+									<option value="tones/wrong">Tone 9</option>
+								</optgroup>
+							</select>
+						</td>
+						<td style="width:18px"><input id="reload-sound-repeat" type="checkbox" disabled></td>
+						<td style="padding-right:6px"><label for="reload-sound-repeat" class="disabled">Repeat if away</label></td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		<tr><td colspan="3" style=""><hr></td></tr>
+		<tr>
+			<td style="padding-top:2px; padding-right:4px; text-align:right; vertical-align:top">Push notifications:</td>
+			<td colspan="2">
+				<table id="reload-mobile-alerts" style="border-collapse:collapse; border-spacing:0; margin:0; padding:0">
+					<tr>
+						<td style="width:18px"><input id="reload-email-enabled" type="checkbox"></td>
+						<td style=""><label for="reload-email-enabled">Send email:</label></td>
+						<td style="padding-left:4px"><select id="reload-email-picker" style="width:172px; box-sizing:border-box"></select></td>
+						<td style="padding-left:8px" id="reload-email-add"><button type="button">+</button></td>
+						<td><button type="button" id="reload-email-remove">–</button></td>
+						<td><button type="button" id="reload-email-test">Test</button></td>
+					</tr>
+					<tr><td></td></tr>
+					<tr>
+						<td style="width:18px"><input id="reload-sms-enabled" type="checkbox"></td>
+						<td style=""><label for="reload-sms-enabled">Send SMS:</label></td>
+						<td style="padding-left:4px"><select id="reload-sms-picker" style="width:172px; box-sizing:border-box"></select></td>
+						<td style="padding-left:8px" id="reload-sms-add"><button type="button">+</button></td>
+						<td><button type="button" id="reload-sms-remove">–</button></td>
+						<td><button type="button" id="reload-sms-test">Test</button></td>
+					</tr>
+					<tr><td></td></tr>
+					<tr>
+						<td style="width:18px"><input id="reload-push-enabled" type="checkbox"></td>
+						<td colspan="2" style=""><label for="reload-push-enabled">Send push notification</label></td>
+						<td style="padding-left:8px"><button type="button" disabled>+</button></td>
+						<td><button type="button" disabled>–</button></td>
+						<td><button type="button" id="test-task-alerts">Test</button></td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		<tr><td></td></tr>
+		<tr>
+			<td></td>
+			<td colspan="2">
+				<table id="" style="border-collapse:collapse; border-spacing:0; margin:0; padding:0">
+					<tr>
+						<td style="width:18px"><input id="reload-send-only-if-away" type="checkbox"></td>
+						<td style=""><label for="reload-send-only-if-away">Send SMS only if away from computer</label></td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		<tr><td colspan="3" style=""><hr></td></tr>
+		<tr>
+			<td style="padding-right:4px; text-align:right; min-width:164px">Schedule:</td>
+			<td style="padding:0">
+				<table style="border-collapse:collapse; border-spacing:0; margin:0; padding:0; margin-bottom:4px">
+					<tr>
+						<td style="width:18px"><input id="reload-autostart" type="checkbox"></td>
+						<td colspan="2" style="padding-right:4px"><label for="reload-autostart">Start reloading at:</label></td>
+						<td>
+							<select id="reload-autostart-hour-24">
+								<option value="0">00</option>
+								<option value="1">01</option>
+								<option value="2">02</option>
+								<option value="3">03</option>
+								<option value="4">04</option>
+								<option value="5">05</option>
+								<option value="6" selected>06</option>
+								<option value="7">07</option>
+								<option value="8">08</option>
+								<option value="9">09</option>
+								<option value="10">10</option>
+								<option value="11">11</option>
+								<option value="12">12</option>
+								<option value="13">13</option>
+								<option value="14">14</option>
+								<option value="15">15</option>
+								<option value="16">16</option>
+								<option value="17">17</option>
+								<option value="18">18</option>
+								<option value="19">19</option>
+								<option value="20">20</option>
+								<option value="21">21</option>
+								<option value="22">22</option>
+								<option value="23">23</option>
+							</select>
+						</td>
+						<td>
+							<select id="reload-autostart-hour">
+								<option value="0">12</option>
+								<option value="1">1</option>
+								<option value="2">2</option>
+								<option value="3">3</option>
+								<option value="4">4</option>
+								<option value="5">5</option>
+								<option value="6" selected>6</option>
+								<option value="7">7</option>
+								<option value="8">8</option>
+								<option value="9">9</option>
+								<option value="10">10</option>
+								<option value="11">11</option>
+							</select>
+						</td>
+						<td>
+							<select id="reload-autostart-minute">
+								<option value="0" selected>:00</option>
+								<option value="15">:15</option>
+								<option value="30">:30</option>
+								<option value="45">:45</option>
+							</select>
+						</td>
+						<td>
+							<select id="reload-autostart-ampm">
+								<option value="am" selected>AM</option>
+								<option value="pm">PM</option>
+							</select>
+						</td>
+						<td style="width:4px"></td>
+						<td>
+							<select id="reload-autostart-mode">
+								<option value="once">Once</option>
+								<option value="weekdays">Weekdays</option>
+								<option value="weekends">Weekends</option>
+								<option value="always">Every Day</option>
+							</select>
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		<tr><td></td></tr>
+		<tr>
+			<td style="padding-right:4px; text-align:right"></td>
+			<td style="padding:0">
+				<table style="border-collapse:collapse; border-spacing:0; margin:0; padding:0">
+					<tr>
+						<td style="width:18px"><input id="reload-autostop" type="checkbox"></td>
+						<td colspan="2" style="padding-right:4px"><label for="reload-autostop">Stop reloading at:</label></td>
+						<td>
+							<select id="reload-autostop-hour-24">
+								<option value="0">00</option>
+								<option value="1">01</option>
+								<option value="2">02</option>
+								<option value="3">03</option>
+								<option value="4">04</option>
+								<option value="5">05</option>
+								<option value="6">06</option>
+								<option value="7">07</option>
+								<option value="8">08</option>
+								<option value="9">09</option>
+								<option value="10">10</option>
+								<option value="11">11</option>
+								<option value="12">12</option>
+								<option value="13">13</option>
+								<option value="14">14</option>
+								<option value="15">15</option>
+								<option value="16">16</option>
+								<option value="17">17</option>
+								<option value="18">18</option>
+								<option value="19">19</option>
+								<option value="20">20</option>
+								<option value="21">21</option>
+								<option value="22" selected>22</option>
+								<option value="23">23</option>
+							</select>
+						</td>
+						<td>
+							<select id="reload-autostop-hour">
+								<option value="0">12</option>
+								<option value="1">1</option>
+								<option value="2">2</option>
+								<option value="3">3</option>
+								<option value="4">4</option>
+								<option value="5">5</option>
+								<option value="6">6</option>
+								<option value="7">7</option>
+								<option value="8">8</option>
+								<option value="9">9</option>
+								<option value="10" selected>10</option>
+								<option value="11">11</option>
+							</select>
+						</td>
+						<td>
+							<select id="reload-autostop-minute">
+								<option value="0" selected>:00</option>
+								<option value="15">:15</option>
+								<option value="30">:30</option>
+								<option value="45">:45</option>
+							</select>
+						</td>
+						<td>
+							<select id="reload-autostop-ampm">
+								<option value="am">AM</option>
+								<option value="pm" selected>PM</option>
+							</select>
+						</td>
+						<td style="width:4px"></td>
+						<td>
+							<select id="reload-autostop-mode">
+								<option value="once">Once</option>
+								<option value="weekdays">Weekdays</option>
+								<option value="weekends">Weekends</option>
+								<option value="always">Every Day</option>
+							</select>
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		<tr style="display:none" class="extra-reload-info"><td colspan="3" style="padding-bottom:4px; padding-top:4px"><hr /></td></tr>
+		<tr style="display:none" class="extra-reload-info">
+			<td colspan="2" style="text-align:center">
+				<strong>Note: At least one Chrome window must be kept open to start automatically.</strong><br>
+				<div style="padding-top:8px">A notification will be sent if tasks are initially available.</div>
+			</td>
+		</tr>
+	</table>
+	<table style="margin:6px auto 6px auto; width:100%">
+		<tr>
+			<td style="padding-right:4px; text-align:right; width:30%">Alerts to submit:</td>
+			<td style="width:18px; margin:0"><input id="show-submit-notification" type="checkbox"/></td>
+			<td><label for="show-submit-notification">Show on-screen notification</label></td>
+		</tr>
+		<tr><td style="height:2px"></td></tr>
+		<tr>
+			<td></td>
+			<td style="width:18px; margin:0"><input id="send-mobile-alerts" type="checkbox"/></td>
+			<td>
+				<label for="send-mobile-alerts">Send push notification</label>
+				&nbsp;
+				<button type="button" id="test-submit-alerts">Test Notification</button>
+			</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td style="width:18px"></td>
+			<td style="padding-top:6px"><div style="font-style:italic; width:360px">Configure alerts by clicking the RaterAide icon at the top right of the window and selecting the "Alerts" pane</div></td>
+		</tr>
+		<tr><td colspan="3" style="padding:4px 0"><hr /></td></tr>
+		<tr>
+			<td style="padding-right:4px; text-align:right">Auto-submit:</td>
+			<td colspan="2" style="padding:0">
+				<table style="border-collapse:collapse; border-spacing:0; margin:0; padding:0">
+					<tr>
+						<td style="width:18px"><input id="autosubmit-enabled" type="checkbox"></td>
+						<td style="padding-right:4px"><label for="autosubmit-enabled">When</label></td>
+						<td>
+							<select id="autosubmit-picker">
+								<option value="0">0</option>
+								<option value="1">1</option>
+								<option value="2">2</option>
+								<option value="3">3</option>
+								<option value="4">4</option>
+								<option value="5">5</option>
+								<option value="10">10</option>
+								<option value="20">20</option>
+								<option value="30">30</option>
+								<option value="60">60</option>
+							</select>
+						</td>
+						<td style="padding:0 4px 0 6px">second(s) remaining</td>
+						<td>
+							<select id="autosubmit-mode">
+								<option value="once">Once</option>
+								<option value="set">For Current Task Set</option>
+								<option value="session">For Current Session</option>
+								<option value="always">Always</option>
+							</select>
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		<tr><td style="height:2px"></td></tr>
+		<tr>
+			<td style="padding-right:4px; text-align:right"></td>
+			<td style="width:18px; margin:0"><input id="autosubmit-sooner" type="checkbox"/></td>
+			<td><label for="autosubmit-sooner">Up to 10 seconds sooner if session speed is below 100%</label></td>
+		</tr>
+		<tr><td colspan="3" style="padding:4px 0"><hr /></td></tr>
+		<tr style="display:none">
+			<td></td>
+			<td colspan="2" style="padding:0">
+				<table style="border-collapse:collapse; border-spacing:0; margin:0; padding:0">
+					<tr>
+						<td style="width:18px"></td>
+						<td style="font-size:12px; width:300px; padding-top:2px; padding-left:4px">More options are available by clicking the RaterAide icon at the top right and selecting "Alerts."</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		<tr style="display:none"><td colspan="3" style="padding:4px 0"><hr /></td></tr>
+		<tr>
+			<td style="padding-right:4px; text-align:right">On Auto-submit:</td>
+			<td style="width:18px; margin:0"><input id="show-autosubmit-notification" type="checkbox" checked/></td>
+			<td><label for="show-autosubmit-notification">Show on-screen notification</label></td>
+		</tr>
+		<tr><td style="height:2px"></td></tr>
+		<tr>
+			<td style="padding-right:4px; text-align:right"></td>
+			<td colspan="2" style="padding:0">
+				<table style="border-collapse:collapse; border-spacing:0; margin:0; padding:0">
+					<tr>
+						<td style="width:18px; margin:0"><input id="autosubmit-activate-tab" type="checkbox"/></td>
+						<td><label for="autosubmit-activate-tab">Activate the task page tab</label></td>
+						<td style="width:18px; margin:0"><input id="autosubmit-focus-window" type="checkbox"/></td>
+						<td><label for="autosubmit-focus-window">and bring its window to the front</label></td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		<tr><td style="height:2px"></td></tr>
+		<tr>
+			<td></td>
+			<td colspan="2" style="padding:0">
+				<table style="border-collapse:collapse; border-spacing:0; margin:0; padding:0">
+					<tr>
+						<td style="width:18px; margin:0"><input id="submit-sound-enabled" type="checkbox"/></td>
+						<td><label for="submit-sound-enabled">Play sound:</label></td>
+						<td>&nbsp;</td>
+						<td>
+							<select id="submit-sound">
+								<optgroup label="Animals">
+									<option value="animals/random">Random</option>
+									<option value="animals/camel">Camel</option>
+									<option value="animals/cat">Cat</option>
+									<option value="animals/cow">Cow</option>
+									<option value="animals/dog">Dog</option>
+									<option value="animals/duck" selected>Duck</option>
+									<option value="animals/elephant">Elephant</option>
+									<option value="animals/elk">Elk</option>
+									<option value="animals/hawk">Hawk</option>
+									<option value="animals/horse">Horse</option>
+									<option value="animals/lion">Lion</option>
+									<option value="animals/monkey">Monkey</option>
+									<option value="animals/pig">Pig</option>
+									<option value="animals/rooster">Rooster</option>
+									<option value="animals/sheep">Sheep</option>
+									<option value="animals/turkey">Turkey</option>
+									<option value="animals/wolf">Wolf</option>
+								</optgroup>
+								<optgroup label="Effects">
+									<option value="effects/random">Random</option>
+									<option value="effects/bell">Bell</option>
+									<option value="effects/chimes">Chimes</option>
+									<option value="effects/martian">Martian</option>
+									<option value="effects/sonic">Sonic</option>
+									<option value="effects/tones1">Effect 1</option>
+									<option value="effects/tones2">Effect 2</option>
+									<option value="effects/tones3">Effect 3</option>
+									<option value="effects/tones4">Effect 4</option>
+									<option value="effects/tones5">Effect 5</option>
+									<option value="effects/tones6">Effect 6</option>
+									<option value="effects/tones7">Effect 7</option>
+									<option value="effects/tones8">Effect 8</option>
+									<option value="effects/tones9">Effect 9</option>
+									<option value="effects/tones10">Effect 10</option>
+									<option value="effects/tones11">Effect 11</option>
+									<option value="effects/tones12">Effect 12</option>
+								</optgroup>
+								<optgroup label="Household">
+									<option value="household/random">Random</option>
+									<option value="household/blender">Blender</option>
+									<option value="household/buzzer">Buzzer</option>
+									<option value="household/cashregister">Cash Register</option>
+									<option value="household/coins">Coins</option>
+									<option value="household/creak">Creak</option>
+									<option value="household/cuckoo">Cuckoo</option>
+									<option value="household/doorbell">Doorbell</option>
+									<option value="household/glass">Glass Breaking</option>
+									<option value="household/icedispenser">Ice Dispenser</option>
+									<option value="household/knock">Knocking</option>
+									<option value="household/pencil">Pencil</option>
+									<option value="household/phone">Phone</option>
+									<option value="household/pills">Pills</option>
+									<option value="household/printer">Printer</option>
+									<option value="household/radio">Radio</option>
+									<option value="household/windchime">Windchime</option>
+									<option value="household/zipper">Zipper</option>
+								</optgroup>
+								<optgroup label="Instruments">
+									<option value="instruments/random">Random</option>
+									<option value="instruments/accordion">Accordion</option>
+									<option value="instruments/bugle">Bugle</option>
+									<option value="instruments/clarinet">Clarinet</option>
+									<option value="instruments/cymbal">Cymbal</option>
+									<option value="instruments/fanfare">Fanfare</option>
+									<option value="instruments/flute">Flute</option>
+									<option value="instruments/gong">Gong</option>
+									<option value="instruments/guitar">Guitar</option>
+									<option value="instruments/harmonica">Harmonica</option>
+									<option value="instruments/harp">Harp</option>
+									<option value="instruments/harpsichord">Harpsichord</option>
+									<option value="instruments/marimba">Marimba</option>
+									<option value="instruments/piano">Piano</option>
+									<option value="instruments/rockorgan">Rock Organ</option>
+									<option value="instruments/saxophone">Saxophone</option>
+									<option value="instruments/timpani">Timpani</option>
+									<option value="instruments/trumpets">Trumpets</option>
+									<option value="instruments/tuba">Tuba</option>
+									<option value="instruments/violin">Violin</option>
+									<option value="instruments/xylophone">Xylophone</option>
+								</optgroup>
+								<optgroup label="Outdoors">
+									<option value="outdoors/random">Random</option>
+									<option value="outdoors/ambulance">Ambulance</option>
+									<option value="outdoors/bicycle">Bicycle</option>
+									<option value="outdoors/blacksmith">Blacksmith</option>
+									<option value="outdoors/caralarm">Car Alarm</option>
+									<option value="outdoors/carstarting">Car Starting</option>
+									<option value="outdoors/circularsaw">Circular Saw</option>
+									<option value="outdoors/drill">Drill</option>
+									<option value="outdoors/fireworks">Fireworks</option>
+									<option value="outdoors/gunfire">Gunfire</option>
+									<option value="outdoors/helicopter">Helicopter</option>
+									<option value="outdoors/jackhammer">Jackhammer</option>
+									<option value="outdoors/locomotive">Locomotive</option>
+									<option value="outdoors/passingcar">Passing Car</option>
+									<option value="outdoors/passingjet">Passing Jet</option>
+									<option value="outdoors/siren">Siren</option>
+									<option value="outdoors/splash">Splash</option>
+									<option value="outdoors/thunder">Thunder</option>
+									<option value="outdoors/trainhorn">Train Horn</option>
+								</optgroup>
+								<optgroup label="Tones">
+									<option value="tones/accept">Tone 1</option>
+									<option value="tones/congrats">Tone 2 (Default)</option>
+									<option value="tones/decline">Tone 3</option>
+									<option value="tones/get">Tone 4</option>
+									<option value="tones/ring">Tone 5</option>
+									<option value="tones/send">Tone 6</option>
+									<option value="tones/system">Tone 7</option>
+									<option value="tones/system-error">Tone 8</option>
+									<option value="tones/wrong">Tone 9</option>
+								</optgroup>
+							</select>
+						</td>
+						<td style="width:24px; text-align:right"><img id="speaker-image" src="img/speaker-on.png" style="opacity:0.7; margin-top:2px"/></td>
+						<td style="margin:0; padding-bottom:10px"><input id="volume-slider" type="text" data-slider="true" value="1" data-slider-highlight="true" data-slider-theme="volume" data-slider-step="0.01" data-slider-snap="true" style="display:none"></td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		<tr><td></td></tr>
+		<tr>
+			<td></td>
+			<td colspan="2" style="padding:0">
+				<table style="border-collapse:collapse; border-spacing:0; margin:0; padding:0">
+					<tr>
+						<td style="width:18px; margin:0"><input id="send-autosubmit-notification" type="checkbox"/></td>
+						<td><label for="send-autosubmit-notification">Send push notification&nbsp;</label></td>
+						<td style="width:18px; margin:0"><input id="send-autosubmit-notification-only-if-away" type="checkbox"/></td>
+						<td>
+							<label for="send-autosubmit-notification-only-if-away">only if away</label>
+							&nbsp;
+							<button type="button" id="test-autosubmit-alerts">Test Notification</button>
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+	<table style="margin:6px auto 6px auto; width:100%">
+		<tr>
+			<td style="padding-right:4px; text-align:right">Show on-screen notification:</td>
+			<td style="width:18px; margin:0"><input id="show-login-notification" type="checkbox"/></td>
+			<td><label for="show-login-notification">If timer is not running</label></td>
+		</tr>
+		<tr><td></td></tr>
+		<tr>
+			<td style="padding-right:4px; text-align:right"></td>
+			<td style="width:18px; margin:0"><input id="show-toolbar-notification" type="checkbox" checked/></td>
+			<td><label for="show-toolbar-notification">If <span class="leapforce-specific">Leapforce</span><span class="lionbridge-specific" style="display:none">Lionbridge</span> extension is not enabled</label></td>
+		</tr>
+		<tr><td colspan="3" style="padding:4px 0"><hr /></td></tr>
+		<tr>
+			<td style="padding-right:4px; text-align:right"><a class="open-popout-timer" style="text-decoration:underline; cursor:pointer">Popout timer</a>:</td>
+			<td style="width:18px; margin:0"><input id="auto-show-popout" type="checkbox"/></td>
+			<td><label for="auto-show-popout">Automatically show and hide</label></td>
+		</tr>
+		<tr><td></td></tr>
+		<tr>
+			<td></td>
+			<td style="width:18px; margin:0"><input id="toggle-timer-on-click" type="checkbox"/></td>
+			<td><label for="toggle-timer-on-click">Start and stop sessions on click</label></td>
+		</tr>
+		<tr><td></td></tr>
+		<tr style="display:none">
+			<td style="padding-right:4px; text-align:right"></td>
+			<td style="width:18px; margin:0"><input id="float-popout-window" type="checkbox"/></td>
+			<td><label for="float-popout-window">Pin to bottom right of screen</label></td>
+		</tr>
+		<tr class="extra-timer-info-hidden" style="display:none"><td colspan="3" style="padding:4px 0"><hr /></td></tr>
+		<tr class="extra-timer-info-hidden" style="display:none">
+			<td colspan="3">
+				<table style="border-collapse:collapse; border-spacing:0; margin:0 auto; padding:0">
+					<tr><td style="padding-top:12px; text-align:center"><b>You must enable a special Chrome setting to pin the timer:</b></td></tr>
+					<tr>
+						<td align="center">
+							<table style="border-collapse:collapse">
+								<tr>
+									<td>
+										<ol>
+											<li style="padding-bottom:4px">Open a new tab and go to <strong class="selectable" style="cursor:text">chrome://flags</strong>.</li>
+											<li style="padding-bottom:4px">Check the "Enable Panels" option.</li>
+											<li>Restart Chrome.</li>
+										</ol>
+									</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr><td style="text-align:center"><b>The popout timer window must be kept at the bottom right to stay pinned.</b></td></tr>
+					<tr><td style="height:2px"></td></tr>
+					<tr><td style="text-align:center; padding-top:4px; padding-bottom:4px">You can make the timer bigger or smaller by resizing its window.</td></tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+	<table style="margin:6px auto 6px auto; width:100%;">
+		<tr>
+			<td style="padding-right:6px; text-align:right; padding-bottom:0; width:46%">Base session duration on:</td>
+			<td colspan="2" style="padding-bottom:2px">
+				<select id="timing-mode-picker">
+					<option value="0">Start and Stop Times</option>
+					<option value="1">Task Durations</option>
+					<option value="2">Total AET</option>
+				</select>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td style="padding-right:6px"></td>
+			<td colspan="2"><button id="update-session-timings" type="button">Update session timings</button></td>
+		</tr>
+		
+		<tr><td style="height:4px"></td></tr>
+		
+		<tr>
+			<td style="padding-right:6px; text-align:right">At end of session:</td>
+			<td style="width:18px"><input id="rounding-box" type="checkbox"/></td>
+			<td><label for="rounding-box">Round stop time down to last submit</label></td>
+		</tr>
+		<tr><td></td></tr>
+		<tr>
+			<td style="padding-right:6px; text-align:right">Resume sessions:</td>
+			<td style="width:18px"><input id="resume-sessions" type="checkbox"/></td>
+			<td><label for="resume-sessions">Within 1 minute of stopping</label></td>
+		</tr>
+		<tr><td colspan="3" style="padding-bottom:4px; padding-top:4px"><hr /></td></tr>
+		<tr>
+			<td style="padding-right:6px; text-align:right">Dropbox account:</td>
+			<td colspan="2"><a id="dropbox-account-link"><span class="selectable"><span id="dropbox-email"></span></span></a></td>
+			<td></td>
+		</tr>
+		<tr><td style="height:2px"></td></tr>
+		<tr>
+			<td style="padding-right:6px; text-align:right">User vendor:</td>
+			<td colspan="2">
+				<table style="border-collapse:collapse">
+					<tr>
+						<td style="width:22px; padding:0"><input id="leapforce-vendor" type="radio" name="user-vendor" value="leapforce" style="box-sizing:border-box"></td>
+						<td style="padding-right:8px"><label for="leapforce-vendor">Leapforce</label></td>
+						<td style="width:22px; padding:0"><input id="lionbridge-vendor" type="radio" name="user-vendor" value="lionbridge" style="box-sizing:border-box"></td>
+						<td><label for="lionbridge-vendor">Lionbridge</label></td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+</div>
+
+<div id="dropbox-account-dialog" class="dialog">
+	<table style="margin:12px auto 4px auto">
+		<tr>
+			<td style="text-align:right">Name:</td>
+			<td style="padding-left:4px"><span id="dropbox-account-name" class="selectable"></span></td>
+		</tr>
+		<tr><td></td></tr>
+		<tr>
+			<td style="text-align:right">Email address:</td>
+			<td style="padding-left:4px"><span id="dropbox-account-email" class="selectable"></span></td>
+		</tr>
+		<tr><td></td></tr>
+		<tr>
+			<td style="text-align:right">User ID:</td>
+			<td style="padding-left:4px"><span id="dropbox-account-uid" class="selectable"></span></td>
+		</tr>
+	</table>
+</div>
+
+<div id="link-opening-options" class="dialog">
+	<table style="margin:6px auto; width:100%">
+		<tr>
+			<td style="padding-right:4px; text-align:right">Task location:</td>
+			<td colspan="2" style="padding-left:2px">
+				<select id="locale-picker" style="width:200px">
+					<option value="61">Australia</option>
+					<option value="55">Brazil</option>
+					<option value="2">Canada</option>
+					<option value="20">Egypt</option>
+					<option value="33">France</option>
+					<option value="49">Germany</option>
+					<option value="62">Malay</option>
+					<option value="39">Italy</option>
+					<option value="852">Hong Kong</option>
+					<option value="81">Japan</option>
+					<option value="82">Korea</option>
+					<option value="351">Portugal</option>
+					<option value="7">Russia</option>
+					<option value="34">Spain</option>
+					<option value="886">Taiwan</option>
+					<option value="44">United Kingdom</option>
+					<option value="1">United States</option>
+					<option value="0" selected>Auto-Detect</option>
+				</select>
+			</td>
+		</tr>
+		<tr><td colspan="3" style="padding-top:4px; padding-bottom:4px"><hr /></td></tr>
+		<tr>
+			<td style="padding-right:4px; text-align:right">Link openers:</td>
+			<td style="width:18px; padding:0"><input id="show-block-labels" type="checkbox"/></td>
+			<td style=""><label for="show-block-labels">Show block labels in tab titles</label></td>
+		</tr>
+		<tr><td></td></tr>
+		<tr>
+			<td></td>
+			<td style="width:18px; padding:0"><input id="open-unique-results" type="checkbox"/></td>
+			<td style="padding-left:0"><label for="open-unique-results">Open only unique links when switching sides</label></td>
+		</tr>
+		<tr><td style="height:4px"></td></tr>
+		<tr>
+			<td></td>
+			<td colspan="2" style="padding:0">
+				<table style="border-collapse:collapse; border-spacing:0; margin:0; padding:0">
+					<tr>
+						<td style="width:18px; padding:0"><input id="auto-open-results" type="checkbox"/></td>
+						<td style="padding-left:0; padding-right:6px"><label for="auto-open-results">Automatically open</label></td>
+						<td style="padding-right:6px">
+							<select id="auto-open-results-mode">
+								<option value="left" selected>Left Side</option>
+								<option value="right">Right Side</option>
+								<option value="both">Both Sides</option>
+							</select>
+						</td>
+						<td><label for="auto-open-results">when task loads</label></td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		<tr><td></td></tr>
+		<tr>
+			<td></td>
+			<td style="width:18px; padding:0"><input id="open-right-to-left" type="checkbox"/></td>
+			<td style="padding-left:0"><label for="open-right-to-left">Start with right side when opening both sides at once</label></td>
+		</tr>
+		<tr><td colspan="3" style="padding-top:4px; padding-bottom:4px"><hr /></td></tr>
+		<tr>
+			<td style="padding-right:4px; text-align:right">Link opening speed:</td>
+			<td colspan="2" style="padding:0">
+				<table style="border-collapse:collapse; border-spacing:0; margin:0; padding:0">
+					<tr>
+						<td><input type="radio" id="link-opening-speed-fast" name="link-opening-speed" value="fast" checked></td>
+						<td><label for="link-opening-speed-fast">Fast</td>
+						<td style="padding-left:6px"><input type="radio" id="link-opening-speed-medium" name="link-opening-speed" value="medium"></td>
+						<td><label for="link-opening-speed-medium">Medium</td>
+						<td style="padding-left:6px"><input type="radio" id="link-opening-speed-slow" name="link-opening-speed" value="slow"></td>
+						<td><label for="link-opening-speed-slow">Slow</td>
+						<td style="padding-left:6px"><input type="radio" id="link-opening-speed-veryslow" name="link-opening-speed" value="veryslow"></td>
+						<td><label for="link-opening-speed-veryslow">Very Slow</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+
+		<tr><td colspan="3" style="padding-top:4px; padding-bottom:4px"><hr /></td></tr>		
+		<tr>
+			<td style="padding-right:4px; text-align:right">Windowing:</td>
+			<td style="width:18px; padding:0"><input id="use-separate-window" type="checkbox"/></td>
+			<td style="padding-left:0"><label for="use-separate-window">Use separate window when link openers are clicked</label></td>
+		</tr>
+		<td></td>
+		<tr>
+			<td style="padding-right:4px; text-align:right"></td>
+			<td style="width:18px; padding:0"><input id="open-links-separately" type="checkbox" disabled/></td>
+			<td style="padding-left:0"><label for="open-links-separately" class="disabled">Use separate window when any task page link is clicked</label></td>
+		</tr>
+		<tr><td colspan="3" style="padding-top:4px; padding-bottom:4px"><hr /></td></tr>
+		<tr>
+			<td style="padding-right:4px; text-align:right">Miscellaneous:</td>
+			<td style="width:18px; padding:0"><input id="quarter-tick-warning" type="checkbox"/></td>
+			<td style="padding-left:0"><label for="quarter-tick-warning">Warn if slider quarter-ticks are used</label></td>
+		</tr>
+		<tr style="display:none">
+			<td></td>
+			<td style="width:18px; padding:0"><input id="hide-contextual-results" type="checkbox"/></td>
+			<td style="padding-left:0; display:none"><label for="hide-contextual-results">Hide contextual results and redundant examples</label></td>
+		</tr>
+<!-- 
+		<tr>
+			<td></td>
+			<td style="width:18px; padding:0"><input id="focus-on-hover" type="checkbox" disabled/></td>
+			<td style="padding-left:0"><label for="focus-on-hover" class="disabled">Focus tab when mouse cursor hovers over a block</label></td>
+		</tr>
+		<tr><td colspan="3" style="padding-top:4px; padding-bottom:4px"><hr /></td></tr>
+		<tr><td></td></tr>
+		<tr>
+			<td></td>
+			<td style="width:18px; padding:0"><input id="close-s2d-dialog" type="checkbox"/></td>
+			<td style="padding-left:0"><label for="close-s2d-dialog">Close "Send to Device" dialog</label></td>
+		</tr>
+ -->
+	</table>	
+</div>
+
+<div id="querybar-options-dialog" class="dialog">
+	<table style="text-align:center; height:136px; overflow-x:hidden">
+		<tr>
+			<td style="padding:16px 0">Drag colors to change their highlight order. Click a color to edit it.</td>
+		</tr>
+		<tr>
+			<td style="padding-bottom:8px; box-sizing:border-box">
+				<div class="qb-colors">
+					<div><input></input></div>
+					<div><input></input></div>
+					<div><input></input></div>
+					<div><input></input></div>
+					<div><input></input></div>
+					<div><input></input></div>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td style="padding-bottom:12px; padding-top:4px"><a id="restore-qb-defaults">Restore Defaults</a></td>
+		</tr>
+	</table>
+</div>
+
+<div id="blocker-options-dialog" class="dialog">
+	<table style="margin:24px 64px 22px 24px">
+		<tr>
+			<td style="text-align:right; padding-left:24px">Block paywall for:</td>
+			<td style="width:18px; margin:0; padding-left:4px"><input id="adblock-nyt" type="checkbox"/></td>
+			<td style="padding-left:2px"><label for="adblock-nyt">New York Times</label></td>
+		</tr>
+		<tr style="display:none">
+			<td style=""></td>
+			<td style="width:18px; margin:0"><input id="adblock-wsj" type="checkbox"/></td>
+			<td style="padding-left:2px"><label for="adblock-wsj">Wall Street Journal</label></td>
+		</tr>
+	</table>
+</div>
+
+<div id="mobile-app-options-dialog" class="dialog">
+	<table style="margin:24px 48px">
+		<tr>
+			<td style="text-align:right; padding-left:24px; padding-right:4px">Send-to-desktop links:</td>
+			<td colspan="2" style="padding-left:2px">
+				<select id="send-to-desktop-mode" style="width:200px">
+					<option value="0">Open in New Tab</option>
+					<option value="1">Open in New Window</option>
+				</select>
+			</td>
+		</tr>
+		<tr><td style="height:4px"></td></tr>
+		<tr>
+			<td style="text-align:right; padding-left:24px; padding-right:4px">Maps task links:</td>
+			<td colspan="2" style="padding-left:2px">
+				<select id="maps-links-mode" style="width:200px">
+					<option value="0">Open Website Homepage</option>
+					<option value="1">Open in Google Maps</option>
+				</select>
+			</td>
+		</tr>
+		<tr><td colspan="3"><hr /></td></tr>
+		<tr>
+			<td></td>
+			<td style="width:18px; margin:0"><input id="highlight-live-results" type="checkbox"/></td>
+			<td><label for="highlight-live-results">Highlight blocks opened in mobile app</label></td>
+		</tr>
+	</table>
+</div>
+
+<div id="pq-extension-options-dialog" class="dialog">
+	<table style="margin:12px; width:760px">
+		<tr>
+			<td style="width:200px; height:200px; border:1px solid #333; vertical-align:top">
+				<table style="width:100%">
+					<tr>
+						<td style="height:12px; width:12px; padding-left:4px; background:LightGray; text-align:cetner"></td>
+						<td style="background:LightGray">Domain query</td>
+					</tr>
+					<tr>
+						<td style="background:white; height:24px"></td><td style="background:white">reviews</td>
+					</tr>
+				</table>
+			</td>
+			<td style="width:12px"></td>
+			<td style="height:200px; border:1px solid #333; vertical-align:top">
+				<table style="width:100%">
+					<tr>
+						<td style="height:12px; width:12px; padding-left:4px; background:LightGray"></td>
+						<td style="width:128px; background:LightGray">Reference name</td>
+						<td style="background:LightGray">URL</td>
+					</tr>
+					<tr>
+						<td style="background:white; height:24px"></td><td style="background:white">Alexa</td><td style="background:white">http://www.alexa.com/site/%d</td>
+					</tr>
+				</table>			
+			</td>
+		</tr>
+	</table>
+</div>
+
+<div id="account-dialog" class="dialog">
+	<table id="cc-table" style="display:none">
+		<tr>
+			<td colspan="3">
+				<p style="padding-top:8px"><strong>RaterAide Pro</strong> is a collection of premium features that make rating faster, easier and more accurate. Premium features include:</p>
+				<p>
+					<table style="width:100%">
+						<tr><td style="width:28%; text-align:right">•</td><td style="padding-left:2px"><a href="http://www.rateraide.com/android" target="_blank">Android and iPhone apps</a></tr></td>
+						<tr class="leapforce-specific"><td style="width:28%; text-align:right">•</td><td style="padding-left:2px"><a href="http://www.rateraide.com/pro#invoicing" target="_blank">Leapforce Auto-Invoice</a></tr></td>
+						<tr class="lionbridge-specific" style="display:none"><td style="width:28%; text-align:right">•</td><td style="padding-left:2px"><a href="http://www.rateraide.com/pro#timesheet" target="_blank">Lionbridge Auto-Timesheet</a></tr></td>
+						<tr><td style="height:4px"></td></tr>
+						<tr><td style="text-align:right">•</td><td style="padding-left:2px"><a href="http://www.rateraide.com/pro#reloader" target="_blank">Auto-Reload with Auto-Acquire</a></tr></td>
+						<tr><td style="text-align:right">•</td><td style="padding-left:2px"><a href="http://www.rateraide.com/pro#reloader" target="_blank">Email, SMS and Push Notifications</a></tr></td>
+						<tr><td style="height:4px"></td></tr>
+						<tr><td style="width:28%; text-align:right">•</td><td style="padding-left:2px"><a href="http://www.rateraide.com/pro#linkopening" target="_blank">Link Openers and Task Features</a></tr></td>
+						<tr><td style="width:28%; text-align:right">•</td><td style="padding-left:2px"><a href="http://www.rateraide.com/pro#querybar" target="_blank">Query Bar Search Term Highlighter</a></tr></td>
+						<tr><td style="height:4px"></td></tr>
+						<tr><td style="width:28%; text-align:right">•</td><td style="padding-left:2px"><a href="http://www.rateraide.com/pro#pqsearch" target="_blank">Search Extension</a></tr></td>
+					</table>
+				</p>
+				<p style="padding-top:8px">
+					RaterAide Pro costs <strong>$4.99</strong> per month, is first billed when you sign up and
+					renews automatically. You can easily cancel at any time.
+					<br><br>
+					Proceeds fund the further development of RaterAide. As always, the developer appreciates your support.
+				</p>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<table id="payment-methods" style="margin:0 auto">
+					<tr>
+						<td style="text-align:right; padding-right:4px">Payment method:</td>
+						<td class="cc-cell radio"><input id="cc-payment" type="radio" checked></td>
+						<td class="cc-cell">Credit card</td>
+						<td class="paypal-cell radio"><input id="paypal-payment" type="radio"></td>
+						<td class="paypal-cell">PayPal</td>
+					</tr>
+					<tr class="length-row" style="display:none">
+						<td style="text-align:right; padding-right:4px">Length:</td>
+						<td colspan="4">
+							<select id="paypal-plan-length" style="width:100%">
+								<option value="0">1 month (recurring)</option>
+								<option value="1">3 months (non-recurring)</option>
+								<option value="2">6 months (non-recurring)</option>
+							</select>
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		<tr><td style="height:12px"></td></tr>
+		<tr style="border:1px solid black; border-bottom:none">
+			<td colspan="3" class="payment">
+				<form action="#" method="POST" id="payment-form">
+					<div class="form-row" style="padding-bottom:4px">
+						<label>
+							<span style="display:inline-block; width:110px; text-align:right">Card Number</span>
+							<input type="text" id="cc-num" size="21" data-stripe="number"/>
+						</label>
+					</div>
+					<div class="form-row" style="padding-bottom:4px">
+						<label>
+							<span style="display:inline-block; width:110px; text-align:right">Expires</span>
+							<input type="text" id="cc-expiry-full" size="9" placeholder="MM / YYYY" max="12" data-stripe="exp-month"/>
+						</label>
+						<input type="hidden" id="cc-expiry-month" data-stripe="exp-month"/>
+						<input type="hidden" id="cc-expiry-year" data-stripe="exp-year"/>
+					</div>
+					<div class="form-row">
+						<label>
+							<span style="display:inline-block; width:110px; text-align:right">CVC</span>
+							<input type="text" id="cc-cvc" size="4" data-stripe="cvc"/>
+						</label>
+					</div>
+				</form>
+			</td>
+			<td colspan="3" class="payment2" style="text-align:center">
+				<div class="paypal-logo" style="cursor:pointer; margin:0 120px"><img src="https://www.paypalobjects.com/en_US/i/btn/btn_subscribeCC_LG.gif" border="0"></div>
+				<div class="paypal-logo" style="display:none; cursor:pointer; margin:0 120px"><img src="https://www.paypalobjects.com/en_US/i/btn/btn_buynowCC_LG.gif" border="0"></div>
+				<div class="paypal-logo" style="display:none; cursor:pointer; margin:0 120px"><img src="https://www.paypalobjects.com/en_US/i/btn/btn_buynowCC_LG.gif" border="0"></div>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="3" class="cc-footer">
+				<div>All major credit cards are accepted. Payment info is transmitted securely (despite any Chrome warnings).
+				Contact <a href="http://www.rateraide.com/contact" target="_blank">customer support</a> if you have any questions.
+				</div>
+			</td>
+		</tr>
+	</table>
+	<table id="acct-table" style="display:none">
+		<tr style="display:none" class="sub-status-row active">
+			<td style="text-align:center">
+				<p><h3 style="padding:4px 0px; text-align:center">Thank you for supporting RaterAide!</h3></p>
+				<p>Your RaterAide Pro subscription is <strong><span class="sub-status">active</span></strong><br>and will automatically renew on <strong><span class="sub-date"></span></strong>.</p>
+				<p>Your contribution is very much appreciated, and if you have any issues, questions, or feature requests feel free to 
+				<a href="http://www.rateraide.com/contact" target="_blank">contact support</a>.</p>
+			</td>
+		</tr>
+		<tr style="display:none" class="sub-status-row paypal">
+			<td>
+				<p><h3 style="padding:4px 0px; text-align:center">Thank you for supporting RaterAide!</h3></p>
+				<p>Your RaterAide Pro subscription is <strong><span class="sub-status">active</span></strong> and being managed by PayPal. To modify your subscription, click the "Edit Subscription" button below.</p>
+				<p>Your contribution is very much appreciated, and if you have any issues, questions, or feature requests feel free to 
+				<a href="http://www.rateraide.com/contact" target="_blank">contact support</a>.</p>
+			</td>
+		</tr>
+		<tr style="display:none" class="sub-status-row proplay">
+			<td>
+				<p><h3 style="padding:4px 0px; text-align:center">Thank you for supporting RaterAide!</h3></p>
+				<p>Your RaterAide Pro subscription is <strong><span class="sub-status">active</span></strong> and being managed by Google Wallet.<br><br>To modify your subscription, click the "Edit Subscription" button below, sign in to your Wallet account, then click "Bills and accounts" on the left-hand side of the page.</p>
+				<p>Your contribution is very much appreciated, and if you have any issues, questions, or feature requests feel free to 
+				<a href="http://www.rateraide.com/contact" target="_blank">contact support</a>.</p>
+			</td>
+		</tr>
+		<tr style="display:none" class="sub-status-row canceled">
+			<td style="text-align:center">
+				<p><h3 style="padding:4px 0px; text-align:center">Thank you for supporting RaterAide!</h3></p>
+				<p>Your RaterAide Pro subscription is <strong><span class="sub-status">active</span></strong><br>but was canceled and will expire on <strong><span class="sub-date"></span></strong>.</p>
+				<p>You can always resubscribe in the future, and if you have any questions or feature requests feel free to <a href="http://www.rateraide.com/contact" target="_blank">contact support</a>.
+			</td>
+		</tr>
+		<tr style="display:none" class="sub-status-row pastdue">
+			<td>
+				<p><h3 style="padding:4px 0px; text-align:center">Thank you for supporting RaterAide!</h3></p>
+				<p>Your RaterAide Pro subscription is currently <strong><span class="sub-status">past due</span></strong> and will expire if payment is not received soon.</p>
+				<p>Click "Edit Subscription" below to update your credit card information and retain access to RaterAide Pro features.</p>
+				<p>Please <a href="http://www.rateraide.com/contact" target="_blank">contact support</a> if you need help updating your payment info.
+			</td>
+		</tr>
+		<tr style="display:none" class="sub-status-row prepaid">
+			<td style="text-align:center">
+				<p><h3 style="padding:4px 0px; text-align:center">Thank you for supporting RaterAide!</h3></p>
+				<p>Your subscription is <strong><span class="sub-status">prepaid</span></strong> and will expire on <strong><span class="sub-date"></span></strong>.</p>
+				<p>You can always resubscribe in the future, and if you have any questions or feature requests feel free to <a href="http://www.rateraide.com/contact" target="_blank">contact support</a>.
+			</td>
+		</tr>
+		<tr><td style="text-align:center"><p>Learn more about RaterAide Pro using the following links:</p></td></tr>
+		<tr><td style="padding-left:112px"><a href="http://www.rateraide.com/android" target="_blank">Android and iPhone apps</a></tr></td>
+		<tr class="leapforce-specific"><td style="padding-left:112px"><a href="http://www.rateraide.com/pro#invoicing" target="_blank">Leapforce Auto-Invoice</a></tr></td>
+		<tr class="lionbridge-specific" style="display:none"><td style="padding-left:112px"><a href="http://www.rateraide.com/pro#timesheet" target="_blank">Lionbridge Auto-Timesheet</a></tr></td>
+		<tr><td style="height:4px"></td></tr>
+		<tr><td style="padding-left:112px"><a href="http://www.rateraide.com/help#reloader" target="_blank">Auto-Reload with Auto-Acquire</a></tr></td>
+		<tr><td style="padding-left:112px"><a href="http://www.rateraide.com/help#reloader" target="_blank">Email, SMS and Push Notifications</a></tr></td>
+		<tr><td style="height:4px"></td></tr>
+		<tr><td style="padding-left:112px"><a href="http://www.rateraide.com/help#linkopeners" target="_blank">Link Openers and Task Features</a></td></tr>
+		<tr><td style="padding-left:112px"><a href="http://www.rateraide.com/help#querybar" target="_blank">Query Bar Search Term Highlighter</a></td></tr>
+		<tr><td style="height:4px"></td></tr>
+		<tr><td style="padding-left:112px"><a href="http://www.rateraide.com/help#pqsearch" target="_blank">Search Extension</a></tr></td>
+		<tr>
+			<td>
+				<table style="width:100%; margin:24px auto">
+					<tr>
+						<td style="text-align:right"><div class="android-link" style="cursor:pointer"><img alt="Android app on Google Play" src="./img/en-play-badge.png" /></td>
+						<td style="width:8px"></td>
+						<td ><div class="android-link" style="cursor:pointer"><img src="./img/appstore_badge.png" /></div></td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		<tr><td style="text-align:center">Some premium features must be enabled in <a id="show-options-dialog" style="text-decoration:underline; cursor:pointer">Settings</a>.</td></tr>
+	</table>
+</div>
+
+<div id="reset-datastore-dialog" class="dialog">
+	<p class="bigger">Resetting the datastore will delete all of your sessions from Dropbox!</p>
+	<p>This operation is permanent and cannot be undone.</p>
+	<p>You should reset the datastore only after you have exported and verified your data.</p>
+	<p>Enter the email address associated with your Dropbox account to reset the datastore:</p>
+	<p style="padding-bottom:0; margin-bottom:10px"><input type="text" id="email-confirmation" spellcheck="false"></p>
+</div>
+
+<div id="import-dialog" class="dialog">
+	<p>Importing...</p>
+	<div id="import-progressbar" style="margin-bottom:4px"></div>
+</div>
+
+<div id="export-dialog" class="dialog">
+	<p>Exporting...</p>
+	<div id="export-progressbar" style="margin-bottom:4px"></div>
+</div>
+
+<div id="reset-dialog" class="dialog">
+	<p><div id="reset-progressbar"></div></p>
+</div>
+
+<div id="count-dialog" class="dialog">
+	<p><strong><span id="task-count" style="font-size:18px"></span></strong><span id="task-count-yukon"> Yukon</span> task<span id="task-count-plural">s</span> completed since <span id="task-count-start">START</span>.</p>
+</div>
+
+<div id="checking-updates-dialog" class="dialog">
+	<p><div id="updates-progressbar"></div></p>
+</div>
+
+<div id="modify-subscription-dialog" class="dialog">
+	<table>
+		<tr>
+			<td style="padding:20px 0">
+				<div style="width:385px; margin-left:auto; margin-right:auto">Enter your new credit card information. Your card will not be charged until the end of your current billing period.</div>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="3" class="payment">
+				<form action="#" method="POST" id="payment-form2">
+					<div class="form-row">
+						<label>
+						<span style="display:inline-block; width:90px; text-align:right; padding-right:4px">Card Number</span>
+						<input type="text" id="cc-num2" size="21" data-stripe="number" autocomplete="off"/>
+						</label>
+					</div>
+					<div class="form-row">
+						<label>
+						<span style="display:inline-block; width:90px; text-align:right; padding-right:4px">CVC</span>
+						<input type="text" id="cc-cvc2" size="4" data-stripe="cvc" autocomplete="off"/>
+						</label>
+					</div>
+					<div class="form-row">
+						<label>
+						<span style="display:inline-block; width:90px; text-align:right; padding-right:4px">Expires</span>
+						<input type="text" id="cc-expiry-full2" size="9" placeholder="MM / YYYY" max="12" data-stripe="exp-month" autocomplete="off"/>
+						</label>
+						<input type="hidden" id="cc-expiry-month2" data-stripe="exp-month" autocomplete="off"/>
+						<input type="hidden" id="cc-expiry-year2" data-stripe="exp-year" autocomplete="off"/>
+					</div>
+				</form>
+			</td>
+		</tr>
+		<tr><td style="height:12px"></td></tr>
+		<tr>
+			<td colspan="3" style="width:385px">
+				Note: Credit card information is transmitted securely, even if Chrome displays a message otherwise.
+			</td>
+		</tr>
+	</table>
+</div>
+
+<div id="timesheet-dialog" class="dialog" style="overflow:hidden">
+	<iframe seamless="seamless" style="width:100%; height:100%; border:0"></iframe>
+</div>
+
+<div id="calendar-dialog" class="dialog" style="overflow:hidden">
+	<iframe seamless="seamless" style="width:100%; height:100%; border:0"></iframe>
+</div>
+
+<div id="invoice-dialog" class="dialog" style="overflow:hidden">
+	<iframe seamless="seamless" style="width:100%; height:100%; border:0"></iframe>
+</div>
+
+<div id="pq-extension-dialog" class="dialog">
+	<table>
+		<tr>
+			<td style="padding:12px 24px 12px 12px"><img src="img/search-extension.png" style="width:72px; height:72px"></td>
+			<td style="text-align:justify">The Search extension lets you quickly research a website's purpose, reputation and popularity. You can install the Search extension from the Chrome Web Store.</td>
+		</tr>
+	</table>
+</div>
+
+<div id="timer-dialog" class="dialog timer" style="overflow:hidden">
+	<iframe seamless="seamless" style="width:100%; height:100%; border:0"></iframe>
+</div>
+
+<!-- 
+<div id="mobile-dialog" class="dialog" style="overflow:hidden">
+	<table class="selectable">
+		<tr>
+			<td style="vertical-align:top; height:100%">
+				<table style="width:340px; margin-bottom:12px; height:100%">
+					<tr><td colspan="2"><h4>Mobile Query Bar</h4></td></tr>
+					<tr><td colspan="2">Now you can highlight search terms on your mobile just like you do on your desktop.<br><br>Open a desktop task page in the RaterAide Android app and your query will appear at the bottom. Tap a term to highlight it on every page, hold to edit it.</td></tr>
+					<tr><td colspan="2"><h4>iPhone Update</h4></td></tr>
+					<tr><td colspan="2">RaterAide for iPhone now supports viewing desktop task links all at once.<br><br>Open the App Store to update to version 2.0 and a new Desktop tab will appear at the bottom when you acquire a desktop task.</td></tr>
+					<tr><td colspan="2"><h4>Stop on SASR</h4></td></tr>
+					<tr><td colspan="2">The timer can now be stopped automatically when you click the "Submit and Stop Rating" button. You can enable this feature in <a class="show-options" style="cursor:pointer; text-decoration:underline">Settings</a></td></tr>
+					<tr><td colspan="2" style="height:20px"></td></tr>
+					<tr>
+						<td id="android-link" style="cursor:pointer"><img style="height:40px" alt="Android app on Google Play" src="https://developer.android.com/images/brand/en_app_rgb_wo_45.png"/></td>
+						<td id="iphone-link" style="cursor:pointer"><img src="http://www.rateraide.com/images/ios/appstore_badge.png" /></td>
+					</tr>
+				</table>
+			</td>
+			<td style="padding-left:12px"><img src="img/art-android.png"></td>
+			<td style="padding:0 24px"><img src="img/art-iphone.png"></td>
+		<tr>
+	</table>
+</div>
+ -->
+
+<div id="whatsnew-dialog" class="dialog" style="overflow:hidden">
+	<table class="selectable" style="margin-top:12px; margin-bottom:12px; width:620px">
+		<tr>
+			<td style="vertical-align:top; height:100%">
+				<table>
+					<tr><td>RaterAide has updated to version <span id="new-version-number"></span>!&nbsp;&nbsp;Here's what's new:</tr>
+					<tr><td style="height:16px"></td></tr>
+					<tr><td><b>Auto-Submit Alert Sounds</b></td></tr>
+					<tr><td>Play a sound when a task is auto-submitted. Enable auto-submit sounds in <a class="linkify show-submit-options">Settings</a></td></tr>
+
+					<tr><td style="height:16px"></td></tr>
+					<tr><td><b>Auto-Submit "Skip" button</b></td></tr>
+					<tr><td>Click the "Skip" button at the bottom of the task page to temporarily disable auto-submit. It will resume for the next task.</td></tr>
+
+					<tr><td style="height:16px"></td></tr>
+					<tr><td><b>Currency Conversion Toggling</b></td></tr>
+					<tr><td>Toggle currency conversion quickly (for non-US currencies) by clicking the earnings column total. If you haven't selected a custom currency, do so in <a class="linkify options-item">Settings</a></td></tr>
+
+					<tr><td style="height:16px"></td></tr>
+					<tr><td><b>Prepaid PayPal Plans</b></td></tr>
+					<tr><td>Pay in advance for a 3 or 6-month RaterAide Pro subscription using PayPal. Choose a non-recurring PayPal plan from the <a class="linkify account-item">RaterAide Pro dialog</a> to sign up without a credit card.</td></tr>
+
+					<tr><td style="height:16px"></td></tr>
+					<tr><td><b>Project Caribou Support</b></td></tr>
+					<tr><td>Track Caribou tasks by opening the <a class="open-popout-timer linkify">Popout Timer</a>, selecting project Caribou, and clicking the "Submit" button for each task. RaterAide Pro users can automatically invoice Caribou sessions.</td></tr>
+
+					<tr><td style="height:16px"></td></tr>
+					<tr><td><b>Questions?</b></td></tr>
+					<tr><td><div style="">Please <a href="http://www.rateraide.com/contact" target="_blank">contact support</a> with any questions or suggestions!</div></td></tr>
+				</table>
+			</td>
+<!-- 			<td style="width:12px"></td> -->
+<!-- 			<td style=""> -->
+<!-- 				<table style="border-collapse:collapse; border-spacing:0; margin:0; padding:0"> -->
+<!-- 					<tr><td><img src="img/sonora-timer.png" style="border:1px solid #ccc" class="shadowed"></td></tr> -->
+<!-- 					<tr><td class="" style="text-align:center; cursor:pointer; padding-bottom:8px"><img src="img/nile-timer.png"></td></tr> -->
+<!-- 					<tr> -->
+<!-- 						<td class="android-link" style="cursor:pointer"><img style="height:40px" alt="Android app on Google Play" src="https://developer.android.com/images/brand/en_app_rgb_wo_45.png"/></td> -->
+<!-- 						<td class="iphone-link" style="cursor:pointer"><img src="http://www.rateraide.com/images/ios/appstore_badge.png" /></td> -->
+<!-- 					</tr> -->
+<!-- 				</table> -->
+<!-- 			</td> -->
+		<tr>
+	</table>
+</div>
+
+<link rel="stylesheet" type="text/css" href="css/simple-slider.css" />
+<link rel="stylesheet" type="text/css" href="css/simple-slider-volume.css" />
+<script type="text/javascript" src="js/lib/simple-slider.js" defer></script>

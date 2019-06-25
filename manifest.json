@@ -1,0 +1,105 @@
+{
+   "background": {
+      "page": "background.html",
+      "persistent": true
+   },
+   "browser_action": {
+      "default_icon": {
+         "19": "img/19x19.png",
+         "38": "img/38x38.png"
+      },
+      "default_popup": "popup.html",
+      "default_title": "RaterAide"
+   },
+   "commands": {
+      "begin-end-session": {
+         "description": "Start/stop Timer"
+      },
+      "close-landing-pages": {
+         "description": "Close all LPs"
+      },
+      "open-all-links": {
+         "description": "Open all LPs"
+      },
+      "open-primary-links": {
+         "description": "Open primary LPs"
+      },
+      "open-secondary-links": {
+         "description": "Open secondary LPs"
+      },
+      "search-selected-text": {
+         "description": "Search for query/selection"
+      },
+      "show-sessions-page": {
+         "description": "Show summary"
+      },
+      "show-task-page": {
+         "description": "Show task page"
+      },
+      "show-timer": {
+         "description": "Show popout timer"
+      },
+      "submit-current-task": {
+         "description": "Submit task"
+      },
+      "toggle-autoreload": {
+         "description": "Toggle auto-reload"
+      },
+      "toggle-autosubmit": {
+         "description": "Toggle auto-submit"
+      }
+   },
+   "content_scripts": [ {
+      "js": [ "js/lib/jquery.min.js", "js/task-worker.js" ],
+      "matches": [ "*://*.raterhub.com/evaluation/rater/task/show*", "*://*.leapforceathome.com/qrp/core/vendors/task*", "*://*.rateraide.com/test/*" ],
+      "run_at": "document_end"
+   }, {
+      "js": [ "js/lib/jquery.min.js", "js/feat-worker.js" ],
+      "matches": [ "*://*.raterhub.com/evaluation/rater/task/show*", "*://*.leapforceathome.com/qrp/core/vendors/block_utility_*", "*://*.leapforceathome.com/qrp/core/vendors/needs_met_*", "*://*.leapforceathome.com/qrp/core/vendors/task*", "*://*.rateraide.com/test/*" ],
+      "run_at": "document_end"
+   }, {
+      "js": [ "js/lib/jquery.min.js", "js/lib/moment.min.js", "js/lib/moment-timezone.js", "js/lib/notify.min.js", "js/invoice-utils.js", "js/invoice-worker.js" ],
+      "matches": [ "*://*.leapforceathome.com/qrp/core/vendors/invoice*", "*://*.leapforceathome.com/qrp/core/login?*" ],
+      "run_at": "document_end"
+   }, {
+      "js": [ "js/home-worker.js" ],
+      "matches": [ "*://*.raterhub.com/", "*://*.raterhub.com/evaluation/rater", "*://*.raterhub.com/evaluation/rater?*", "*://*.rateraide.com/test/yukon/home/*" ],
+      "run_at": "document_start"
+   }, {
+      "js": [ "js/lib/jquery.min.js", "js/aide-worker.js" ],
+      "matches": [ "*://www.rateraide.com/pro*" ]
+   }, {
+      "css": [ "css/lab-worker.css" ],
+      "js": [ "js/lib/jquery.min.js", "js/lib/moment.min.js", "js/lib/moment-timezone.js", "js/lib/notify.min.js", "js/invoice-utils.js", "js/lab-worker.js" ],
+      "matches": [ "https://www.raterlabs.com/qrp/core/vendors/invoices", "https://www.raterlabs.com/qrp/core/vendors/invoice/*", "https://www.raterlabs.com/qrp/core/vendors/needs_met_feedback*", "https://www.raterlabs.com/qrp/core/vendors/needs_met_simulator*" ],
+      "run_at": "document_end"
+   }, {
+      "all_frames": true,
+      "css": [ "css/ulti-worker.css" ],
+      "js": [ "js/lib/jquery.min.js", "js/lib/moment.min.js", "js/lib/moment-timezone.js", "js/lib/notify.min.js", "js/timesheet-utils.js", "js/ulti-worker.js" ],
+      "matches": [ "https://*.ultipro.com/*" ],
+      "run_at": "document_start"
+   }, {
+      "css": [ "css/iw.css" ],
+      "exclude_matches": [ "*://*.raterhub.com/*" ],
+      "js": [ "js/itinerant-worker.js" ],
+      "matches": [ "\u003Call_urls>" ],
+      "run_at": "document_start"
+   } ],
+   "content_security_policy": "script-src 'self' https://*.dropbox.com https://mandrillapp.com https://*.rateraide.com https://*.firebaseio.com https://*.stripe.com 'unsafe-eval'; object-src 'self';",
+   "description": "Tools for Leapforce and Lionbridge raters",
+   "homepage_url": "http://www.rateraide.com",
+   "icons": {
+      "128": "img/128x128.png",
+      "16": "img/16x16.png",
+      "48": "img/48x48.png"
+   },
+   "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAk2hksWk3eJIuWuoO1PZDnmUd+zWPrEiIBkV/kt3LmJ7+lThrCjqRbATiTobeZkl4jTukw1MPADl2JNvltxqKLH0YrDK1HAqRukQKQPDi0ZdUi4uD7/Rlt+sV6XZ8pSZhwU1vwBREyQZJN+luV129iGbbUf29KsSNQXJ9Yw1qV7l+1hhAqrx7ZYM1S6EVv2mMRtPzExaFiVpAdGeyEihMKto6pjsBsPWUWylgoZEHnzCTS5KB+wgzi1dak+w4BEFIAuR/velO2Ip3nivxsTPNgr0+BPYnKWVOsaOZz8mSIWhjM7veQtmqDt6cLzvBlfgkdXM9h09Qs9vci7582fFYSwIDAQAB",
+   "manifest_version": 2,
+   "name": "RaterAide",
+   "options_page": "options-redirect.html",
+   "permissions": [ "alarms", "contextMenus", "gcm", "idle", "management", "notifications", "storage", "tabs", "tts", "webRequest", "webRequestBlocking", "*://*/" ],
+   "update_url": "https://clients2.google.com/service/update2/crx",
+   "version": "9.34",
+   "web_accessible_resources": [ "chrome_oauth_receiver.html", "css/itinerant-worker.css", "img/16x16.png" ]
+}
